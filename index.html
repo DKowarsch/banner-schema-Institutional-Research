@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Sierra University — Institutional Research</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: #2a2f42;
+    --border2: #363d56;
+    --text: #ffffff;
+    --muted: #d0d4e8;
+    --hint: #9ba3bf;
+    --accent: #4f7cff;
+    --accent-dim: #1e2d5c;
+    --gold: #f5c842;
+    --green: #2dd4a0;
+    --green-dim: #0d3328;
+    --amber: #f5a623;
+    --amber-dim: #3a2800;
+    --coral: #ff6b6b;
+    --coral-dim: #3a1515;
+    --purple: #a78bfa;
+    --purple-dim: #2d1f5e;
+    --teal: #38bdf8;
+    --teal-dim: #0c2a3a;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 14px; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; position: sticky; top: 0; z-index: 50;
+    background: rgba(15,17,23,0.92); backdrop-filter: blur(12px);
+  }
+  .logo { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: 0.08em; display: flex; align-items: center; gap: 10px; }
+  .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .header-actions { display: flex; gap: 8px; }
+
+  /* ── Layout ── */
+  .container { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+  .page-title { font-family: var(--mono); font-size: 11px; color: var(--hint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .page-heading { font-size: 24px; font-weight: 300; color: var(--text); margin-bottom: 2rem; }
+  .page-heading span { color: var(--accent); font-weight: 500; }
+
+  /* ── Toolbar ── */
+  .toolbar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
+  .search-wrap { flex: 1; min-width: 200px; position: relative; }
+  .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); opacity: 0.4; pointer-events: none; }
+  input[type="text"] {
+    width: 100%; padding: 8px 12px 8px 34px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: var(--sans); font-size: 13px; outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+  input[type="text"]::placeholder { color: var(--hint); }
+  select {
+    padding: 8px 12px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text); font-family: var(--sans); font-size: 13px;
+    outline: none; cursor: pointer;
+  }
+  select:focus { border-color: var(--accent); }
+
+  /* ── Buttons ── */
+  .btn {
+    padding: 7px 14px; border-radius: 6px; font-size: 12px; font-family: var(--sans);
+    cursor: pointer; border: 1px solid var(--border); background: var(--surface);
+    color: var(--muted); transition: all 0.15s; white-space: nowrap;
+  }
+  .btn:hover { border-color: var(--border2); color: var(--text); background: var(--surface2); }
+  .btn-primary { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  .btn-primary:hover { background: var(--accent); color: #fff; }
+  .btn-danger { border-color: var(--coral-dim); color: var(--coral); background: transparent; }
+  .btn-danger:hover { background: var(--coral-dim); }
+  .btn-sm { padding: 3px 10px; font-size: 11px; }
+  .btn-icon { padding: 4px 8px; font-size: 13px; border-radius: 4px; }
+
+  /* ── Stats bar ── */
+  .stats-bar { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .stat { font-size: 12px; color: var(--muted); }
+  .stat strong { color: var(--text); font-weight: 500; }
+
+  /* ── Card grid ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+    position: relative; overflow: hidden;
+  }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.15s; }
+  .card:hover { border-color: var(--border2); transform: translateY(-1px); }
+  .card:hover::before { background: var(--accent); }
+  .card.is-new { border-color: #1a4035; }
+  .card.is-new::before { background: var(--green); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
+  .tname { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--gold); letter-spacing: 0.04em; }
+  .badges { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 4px;
+    letter-spacing: 0.05em; text-transform: uppercase; border: 1px solid transparent;
+  }
+  .badge-student  { background: var(--green-dim);  color: var(--green);  border-color: #1a4035; }
+  .badge-faculty  { background: var(--accent-dim); color: var(--accent); border-color: #1e2d5c; }
+  .badge-payroll  { background: var(--amber-dim);  color: var(--amber);  border-color: #4a3500; }
+  .badge-course   { background: var(--purple-dim); color: var(--purple); border-color: #3d2a7a; }
+  .badge-person   { background: var(--coral-dim);  color: var(--coral);  border-color: #4a1f1f; }
+  .badge-lookup   { background: #1a1e2e;           color: var(--muted);  border-color: var(--border); }
+  .badge-other    { background: var(--teal-dim);   color: var(--teal);   border-color: #0d3348; }
+  .badge-new      { background: var(--green-dim);  color: var(--green);  border-color: #1a4035; font-size: 9px; }
+  .tdesc { font-size: 13px; color: #d0d4e8; margin-bottom: 10px; line-height: 1.5; }
+  .cols-preview { font-family: var(--mono); font-size: 12px; color: #9ba3bf; line-height: 1.6; }
+  .col-count { font-size: 12px; color: #9ba3bf; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+
+  /* ── Modal ── */
+  .modal-bg {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 200; align-items: center; justify-content: center; padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border2); border-radius: 12px;
+    padding: 1.5rem; width: min(620px, 100%); max-height: 85vh; overflow-y: auto;
+    animation: slideUp 0.18s ease;
+  }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 8px; }
+  .modal-title { font-family: var(--mono); font-size: 15px; font-weight: 500; margin-bottom: 4px; color: var(--gold); }
+  .modal-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--muted); }
+
+  /* ── Column table ── */
+  .col-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+  .col-table th { font-size: 10px; font-family: var(--mono); color: var(--hint); text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: left; }
+  .col-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); font-size: 12px; vertical-align: middle; }
+  .col-table tr:last-child td { border-bottom: none; }
+  .col-table tr:hover td { background: var(--surface2); }
+  .col-name-cell { font-family: var(--mono); font-size: 13px; color: #ffffff; }
+  .col-type-cell { font-family: var(--mono); font-size: 10.5px; color: var(--muted); background: var(--bg); padding: 2px 6px; border-radius: 3px; display: inline-block; }
+  .col-desc-cell { font-size: 13px; color: #d0d4e8; }
+  .pk-badge { font-size: 9px; font-family: var(--mono); background: var(--accent-dim); color: var(--accent); border: 1px solid #b8cafe; border-radius: 3px; padding: 1px 5px; }
+
+  /* ── Add column row ── */
+  .add-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .add-row input, .add-row select { font-size: 12px; padding: 6px 9px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--text); font-family: var(--sans); outline: none; }
+  .add-row input:focus, .add-row select:focus { border-color: var(--accent); }
+  .add-row input { flex: 1; min-width: 100px; }
+  .add-row .pk-wrap { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .add-row .pk-wrap input[type=checkbox] { accent-color: var(--accent); }
+  .section-label { font-size: 10px; font-family: var(--mono); color: var(--hint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; margin-top: 1.25rem; }
+  .modal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+  /* ── Empty state ── */
+  .empty { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--hint); }
+  .empty p { font-size: 13px; margin-top: 0.5rem; }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .tab { padding: 10px 18px; font-size: 12px; font-family: var(--mono); cursor: pointer; color: var(--hint); border-bottom: 2px solid transparent; letter-spacing: 0.05em; transition: color 0.15s; }
+  .tab:hover { color: var(--muted); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── Join view ── */
+  .join-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
+  .join-title { font-family: var(--mono); font-size: 12px; color: var(--text); margin-bottom: 8px; }
+  .join-title span { color: var(--muted); font-weight: 300; }
+  .join-row { font-size: 11.5px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+  .join-row:last-child { border-bottom: none; }
+  .jk { font-family: var(--mono); font-size: 11px; color: var(--teal); }
+  .join-note { font-size: 11px; color: var(--hint); font-style: italic; }
+
+  /* ── Toast ── */
+  .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 16px; font-size: 12px; color: var(--text); z-index: 999; animation: fadeIn 0.2s ease; display: none; }
+  .toast.show { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .container { padding: 1rem; }
+    header { padding: 0 1rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    LA SIERRA UNIVERSITY / INSTITUTIONAL RESEARCH
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-sm" onclick="exportJSON()">Export JSON</button>
+    <button class="btn btn-sm btn-primary" onclick="openAdd()">+ Add table</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-title">Ellucian Banner ERP — Institutional Research Office</div>
+  <div class="page-heading">La Sierra University <span>Schema Reference</span></div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('tables', this)">TABLES</div>
+    <div class="tab" onclick="switchTab('joins', this)">QUERY JOINS</div>
+  </div>
+
+  <!-- Tables view -->
+  <div id="view-tables">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search" placeholder="Search tables, columns, descriptions…" oninput="render()">
+      </div>
+      <select id="catFilter" onchange="render()">
+        <option value="">All categories</option>
+        <option value="student">Student</option>
+        <option value="faculty">Faculty</option>
+        <option value="payroll">Payroll</option>
+        <option value="course">Course</option>
+        <option value="person">Person / ID</option>
+        <option value="lookup">Lookup</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="stats-bar" id="statsBar"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- Joins view -->
+  <div id="view-joins" style="display:none">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:1.25rem;font-family:var(--mono)">
+      Instructor query joins &mdash; <span style="color:var(--teal)">SSBSECT_TERM_CODE = '202604'</span>
+    </div>
+    <div class="join-card">
+      <div class="join-title">SIRASGN → SPRIDEN <span>— resolve instructor name &amp; campus ID</span></div>
+      <div class="join-row"><span class="jk">SIRASGN_PIDM</span> = <span class="jk">SPRIDEN_PIDM</span></div>
+      <div class="join-row"><span class="join-note">+ WHERE SPRIDEN_CHANGE_IND IS NULL (current name record only — never omit this filter)</span></div>
+    </div>
+    <div class="join-card">
+      <div class="join-title">SIRASGN → SSBSECT <span>— get the offered section</span></div>
+      <div class="join-row"><span class="jk">SIRASGN_TERM_CODE</span> = <span class="jk">SSBSECT_TERM_CODE</span></div>
+      <div class="join-row"><span class="jk">SIRASGN_CRN</span> = <span class="jk">SSBSECT_CRN</span></div>
+    </div>
+    <div class="join-card">
+      <div class="join-title">SSBSECT → SCBCRSE <span>— get current catalog entry</span></div>
+      <div class="join-row"><span class="jk">SSBSECT_SUBJ_CODE</span> = <span class="jk">SCBCRSE_SUBJ_CODE</span></div>
+      <div class="join-row"><span class="jk">SSBSECT_CRSE_NUMB</span> = <span class="jk">SCBCRSE_CRSE_NUMB</span></div>
+      <div class="join-row"><span class="join-note">Subquery: MAX(SCBCRSE_EFF_TERM) per subject+course — picks the most recent catalog row</span></div>
+    </div>
+    <div class="join-card">
+      <div class="join-title">SCBCRSE → STVDEPT <span>— decode department code</span></div>
+      <div class="join-row"><span class="jk">SCBCRSE_DEPT_CODE</span> = <span class="jk">STVDEPT_CODE</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modalBg" onclick="closeBg(event)">
+  <div class="modal" id="modal"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const CAT_LABELS = {student:'Student',faculty:'Faculty',payroll:'Payroll',course:'Course',person:'Person/ID',lookup:'Lookup',other:'Other'};
+
+let tables = [
+  {id:1,name:'SGBSTDN',cat:'student',desc:'Student general base record — primary student record',isNew:false,cols:[
+    {n:'SGBSTDN_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
+    {n:'SGBSTDN_TERM_CODE_EFF',t:'VARCHAR2',d:'Effective term code',pk:true},
+    {n:'SGBSTDN_STST_CODE',t:'VARCHAR2',d:'Student status code'},
+    {n:'SGBSTDN_LEVL_CODE',t:'VARCHAR2',d:'Academic level (UG/GR)'},
+    {n:'SGBSTDN_STYP_CODE',t:'VARCHAR2',d:'Student type code'},
+    {n:'SGBSTDN_MAJR_CODE_1',t:'VARCHAR2',d:'Primary major code'},
+    {n:'SGBSTDN_COLL_CODE_1',t:'VARCHAR2',d:'College code'},
+    {n:'SGBSTDN_DEGC_CODE_1',t:'VARCHAR2',d:'Degree code'},
+  ]},
+  {id:2,name:'SIBINST',cat:'faculty',desc:'Instructor base record — faculty registration and assignment',isNew:false,cols:[
+    {n:'SIBINST_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
+    {n:'SIBINST_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
+    {n:'SIBINST_DEPT_CODE',t:'VARCHAR2',d:'Department code'},
+    {n:'SIBINST_POSN',t:'VARCHAR2',d:'Position number'},
+    {n:'SIBINST_RANK_CODE',t:'VARCHAR2',d:'Faculty rank code'},
+    {n:'SIBINST_TENURE_CODE',t:'VARCHAR2',d:'Tenure status'},
+  ]},
+  {id:3,name:'PHREARN',cat:'payroll',desc:'Payroll earnings record — employee earnings by pay period',isNew:false,cols:[
+    {n:'PHREARN_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
+    {n:'PHREARN_PAYNO',t:'NUMBER',d:'Pay number / period',pk:true},
+    {n:'PHREARN_YEAR',t:'NUMBER',d:'Payroll year'},
+    {n:'PHREARN_EARN_CODE',t:'VARCHAR2',d:'Earnings code'},
+    {n:'PHREARN_HRS',t:'NUMBER',d:'Hours worked'},
+    {n:'PHREARN_AMT',t:'NUMBER',d:'Earnings amount'},
+    {n:'PHREARN_POSN',t:'VARCHAR2',d:'Position number'},
+  ]},
+  {id:4,name:'SCBCRSE',cat:'course',desc:'Course catalog base — latest effective row per subject+course. Always use MAX(EFF_TERM) subquery.',isNew:false,cols:[
+    {n:'SCBCRSE_SUBJ_CODE',t:'VARCHAR2',d:'Subject/discipline code',pk:true},
+    {n:'SCBCRSE_CRSE_NUMB',t:'VARCHAR2',d:'Course number',pk:true},
+    {n:'SCBCRSE_EFF_TERM',t:'VARCHAR2',d:'Effective term — use MAX() subquery for current row',pk:true},
+    {n:'SCBCRSE_TITLE',t:'VARCHAR2',d:'Course title'},
+    {n:'SCBCRSE_DEPT_CODE',t:'VARCHAR2',d:'Department code → STVDEPT'},
+    {n:'SCBCRSE_COLL_CODE',t:'VARCHAR2',d:'College code'},
+    {n:'SCBCRSE_CREDIT_HR_LOW',t:'NUMBER',d:'Minimum credit hours'},
+    {n:'SCBCRSE_CREDIT_HR_HIGH',t:'NUMBER',d:'Maximum credit hours'},
+  ]},
+  {id:5,name:'STVTERM',cat:'lookup',desc:'Term validation — valid term codes and date ranges',isNew:false,cols:[
+    {n:'STVTERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
+    {n:'STVTERM_DESC',t:'VARCHAR2',d:'Term description'},
+    {n:'STVTERM_START_DATE',t:'DATE',d:'Term start date'},
+    {n:'STVTERM_END_DATE',t:'DATE',d:'Term end date'},
+    {n:'STVTERM_FA_PROC_YR',t:'VARCHAR2',d:'Financial aid processing year'},
+  ]},
+  {id:6,name:'STVMAJR',cat:'lookup',desc:'Major validation — valid major codes and CIP classifications',isNew:false,cols:[
+    {n:'STVMAJR_CODE',t:'VARCHAR2',d:'Major code',pk:true},
+    {n:'STVMAJR_DESC',t:'VARCHAR2',d:'Major description'},
+    {n:'STVMAJR_CIPC_CODE',t:'VARCHAR2',d:'CIP classification code'},
+  ]},
+  {id:7,name:'GTVZIPC',cat:'lookup',desc:'ZIP code general validation table',isNew:false,cols:[
+    {n:'GTVZIPC_CODE',t:'VARCHAR2',d:'ZIP/postal code',pk:true},
+    {n:'GTVZIPC_CITY',t:'VARCHAR2',d:'City'},
+    {n:'GTVZIPC_STAT_CODE',t:'VARCHAR2',d:'State code'},
+    {n:'GTVZIPC_NATN_CODE',t:'VARCHAR2',d:'Nation code'},
+  ]},
+  {id:8,name:'FTYACCT',cat:'lookup',desc:'Finance account type validation table',isNew:false,cols:[
+    {n:'FTYACCT_ACCT_CODE',t:'VARCHAR2',d:'Account type code',pk:true},
+    {n:'FTYACCT_DESC',t:'VARCHAR2',d:'Account description'},
+    {n:'FTYACCT_NRML_BAL',t:'VARCHAR2',d:'Normal balance (D/C)'},
+  ]},
+  {id:9,name:'PTVJOBP',cat:'lookup',desc:'Payroll job position type validation',isNew:false,cols:[
+    {n:'PTVJOBP_CODE',t:'VARCHAR2',d:'Job position type code',pk:true},
+    {n:'PTVJOBP_DESC',t:'VARCHAR2',d:'Description'},
+  ]},
+  {id:10,name:'PTRECLS',cat:'payroll',desc:'HR employee class record — employee classification and benefits',isNew:false,cols:[
+    {n:'PTRECLS_CODE',t:'VARCHAR2',d:'Employee class code',pk:true},
+    {n:'PTRECLS_DESC',t:'VARCHAR2',d:'Description'},
+    {n:'PTRECLS_ECLS_CODE',t:'VARCHAR2',d:'Employee class category'},
+    {n:'PTRECLS_BCAT_CODE',t:'VARCHAR2',d:'Benefit category'},
+  ]},
+  {id:11,name:'SPRIDEN',cat:'person',desc:'Person identification — name, campus ID, PIDM. Filter CHANGE_IND IS NULL for current record.',isNew:true,cols:[
+    {n:'SPRIDEN_PIDM',t:'NUMBER',d:'Internal system person ID (joins all modules)',pk:true},
+    {n:'SPRIDEN_ID',t:'VARCHAR2',d:'Banner/campus ID (e.g. 900xxxxxx)',pk:true},
+    {n:'SPRIDEN_CHANGE_IND',t:'VARCHAR2',d:'NULL = current record; non-null = historical name change'},
+    {n:'SPRIDEN_LAST_NAME',t:'VARCHAR2',d:'Last name'},
+    {n:'SPRIDEN_FIRST_NAME',t:'VARCHAR2',d:'First name'},
+    {n:'SPRIDEN_MI',t:'VARCHAR2',d:'Middle initial'},
+    {n:'SPRIDEN_ENTITY_IND',t:'VARCHAR2',d:'P=Person, C=Corporation'},
+  ]},
+  {id:12,name:'SIRASGN',cat:'faculty',desc:'Section instructor assignment — links instructor PIDM to a CRN for a term',isNew:true,cols:[
+    {n:'SIRASGN_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
+    {n:'SIRASGN_CRN',t:'VARCHAR2',d:'Course reference number',pk:true},
+    {n:'SIRASGN_PIDM',t:'NUMBER',d:'Instructor internal person ID → SPRIDEN',pk:true},
+    {n:'SIRASGN_CATEGORY',t:'VARCHAR2',d:'Assignment category (P=primary, etc.)'},
+    {n:'SIRASGN_PERCENT_RESPONSE',t:'NUMBER',d:'Percent of grading responsibility'},
+    {n:'SIRASGN_OVER_RIDE',t:'VARCHAR2',d:'Override indicator'},
+    {n:'SIRASGN_INST_MTHD_CODE',t:'VARCHAR2',d:'Instructional method code'},
+  ]},
+  {id:13,name:'SSBSECT',cat:'course',desc:'Schedule section base — one row per offered section (CRN) per term',isNew:true,cols:[
+    {n:'SSBSECT_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
+    {n:'SSBSECT_CRN',t:'VARCHAR2',d:'Course reference number (unique per term)',pk:true},
+    {n:'SSBSECT_SUBJ_CODE',t:'VARCHAR2',d:'Subject code → SCBCRSE'},
+    {n:'SSBSECT_CRSE_NUMB',t:'VARCHAR2',d:'Course number → SCBCRSE'},
+    {n:'SSBSECT_SEQ_NUMB',t:'VARCHAR2',d:'Section sequence number (001, 002…)'},
+    {n:'SSBSECT_CAMP_CODE',t:'VARCHAR2',d:'Campus code'},
+    {n:'SSBSECT_PTRM_CODE',t:'VARCHAR2',d:'Part-of-term code'},
+    {n:'SSBSECT_ENRL',t:'NUMBER',d:'Current enrollment count'},
+    {n:'SSBSECT_SEATS_AVAIL',t:'NUMBER',d:'Available seats'},
+    {n:'SSBSECT_MAX_ENRL',t:'NUMBER',d:'Maximum enrollment cap'},
+    {n:'SSBSECT_SSTS_CODE',t:'VARCHAR2',d:'Section status (A=Active, C=Cancelled)'},
+    {n:'SSBSECT_SCHD_CODE',t:'VARCHAR2',d:'Schedule type code (LEC, LAB, etc.)'},
+    {n:'SSBSECT_INSM_CODE',t:'VARCHAR2',d:'Instructional method code'},
+  ]},
+  {id:14,name:'STVDEPT',cat:'lookup',desc:'Department validation — decode department codes to descriptions',isNew:true,cols:[
+    {n:'STVDEPT_CODE',t:'VARCHAR2',d:'Department code',pk:true},
+    {n:'STVDEPT_DESC',t:'VARCHAR2',d:'Department description'},
+    {n:'STVDEPT_ACTIVITY_DATE',t:'DATE',d:'Last update date'},
+  ]},
+];
+let nextId = 15;
+
+function catBadge(cat) {
+  return `<span class="badge badge-${cat}">${CAT_LABELS[cat]||cat}</span>`;
+}
+
+function render() {
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const cf = document.getElementById('catFilter').value;
+  const shown = tables.filter(t => {
+    if (cf && t.cat !== cf) return false;
+    if (!q) return true;
+    if (t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)) return true;
+    return t.cols.some(c => c.n.toLowerCase().includes(q) || (c.d && c.d.toLowerCase().includes(q)));
+  });
+
+  const cats = {};
+  tables.forEach(t => cats[t.cat] = (cats[t.cat]||0)+1);
+  document.getElementById('statsBar').innerHTML =
+    `<div class="stat"><strong>${shown.length}</strong> of ${tables.length} tables</div>` +
+    Object.entries(cats).map(([c,n])=>`<div class="stat">${catBadge(c)} <strong>${n}</strong></div>`).join('');
+
+  const g = document.getElementById('grid');
+  if (!shown.length) {
+    g.innerHTML = `<div class="empty"><div style="font-size:2rem;opacity:0.3">⌀</div><p>No tables match your search.</p></div>`;
+    return;
+  }
+  g.innerHTML = shown.map(t => {
+    const prev = t.cols.slice(0,4).map(c=>`<span style="color:var(--hint)">${c.n}</span>`).join('<br>') +
+      (t.cols.length > 4 ? `<br><span style="opacity:0.4">+${t.cols.length-4} more…</span>` : '');
+    return `<div class="card${t.isNew?' is-new':''}" onclick="openTable(${t.id})">
+      <div class="card-header">
+        <span class="tname">${t.name}</span>
+        <div class="badges">${catBadge(t.cat)}${t.isNew?'<span class="badge badge-new">NEW</span>':''}</div>
+      </div>
+      <div class="tdesc">${t.desc}</div>
+      <div class="cols-preview">${prev}</div>
+      <div class="col-count">${t.cols.length} column${t.cols.length!==1?'s':''}</div>
+    </div>`;
+  }).join('');
+}
+
+function openTable(id) {
+  const t = tables.find(x => x.id === id); if (!t) return;
+  document.getElementById('modal').innerHTML = modalHTML(t);
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function modalHTML(t) {
+  const rows = t.cols.map((c,i) => `<tr>
+    <td>${c.pk?'<span class="pk-badge">PK</span>':''}</td>
+    <td class="col-name-cell">${c.n}</td>
+    <td><span class="col-type-cell">${c.t}</span></td>
+    <td class="col-desc-cell">${c.d||''}</td>
+    <td><button class="btn btn-icon btn-danger" onclick="removeCol(${t.id},${i})" title="Remove column">✕</button></td>
+  </tr>`).join('');
+
+  return `<div class="modal-head">
+    <div>
+      <div class="modal-title">${t.name}</div>
+      <div class="modal-meta">${catBadge(t.cat)} ${t.isNew?'<span class="badge badge-new">newly added</span>':''} <span>${t.desc}</span></div>
+    </div>
+    <button class="btn" onclick="closeModal()">✕ Close</button>
+  </div>
+  <table class="col-table">
+    <thead><tr><th></th><th>Column</th><th>Type</th><th>Description</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td colspan="5" style="color:var(--hint);text-align:center;padding:1rem">No columns yet — add one below</td></tr>'}</tbody>
+  </table>
+  <div class="section-label">Add column</div>
+  <div class="add-row">
+    <input id="nc_name" placeholder="COLUMN_NAME">
+    <select id="nc_type"><option>VARCHAR2</option><option>NUMBER</option><option>DATE</option><option>CHAR</option><option>CLOB</option><option>TIMESTAMP</option></select>
+    <input id="nc_desc" placeholder="Description">
+    <div class="pk-wrap"><input type="checkbox" id="nc_pk"> PK</div>
+    <button class="btn btn-primary" onclick="addCol(${t.id})">+ Add</button>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" onclick="deleteTable(${t.id})">Delete table</button>
+    <span style="font-size:11px;color:var(--hint)">${t.cols.length} columns total</span>
+  </div>`;
+}
+
+function removeCol(tid, ci) {
+  const t = tables.find(x => x.id === tid); if (!t) return;
+  t.cols.splice(ci, 1);
+  document.getElementById('modal').innerHTML = modalHTML(t);
+  render(); showToast('Column removed');
+}
+
+function addCol(tid) {
+  const t = tables.find(x => x.id === tid); if (!t) return;
+  const n = (document.getElementById('nc_name').value||'').trim().toUpperCase();
+  if (!n) { document.getElementById('nc_name').focus(); return; }
+  t.cols.push({ n, t: document.getElementById('nc_type').value, d: (document.getElementById('nc_desc').value||'').trim(), pk: document.getElementById('nc_pk').checked });
+  document.getElementById('modal').innerHTML = modalHTML(t);
+  render(); showToast('Column added');
+}
+
+function deleteTable(tid) {
+  if (!confirm('Remove this table from the directory?')) return;
+  tables = tables.filter(x => x.id !== tid);
+  closeModal(); render(); showToast('Table deleted');
+}
+
+function openAdd() {
+  document.getElementById('modal').innerHTML = `
+    <div class="modal-head">
+      <div class="modal-title">Add table</div>
+      <button class="btn" onclick="closeModal()">✕ Close</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <div class="section-label" style="margin-top:0">Table name</div>
+        <input type="text" id="nt_name" placeholder="e.g. SGRADVR" style="width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-family:var(--mono);font-size:13px;outline:none;margin-top:4px">
+      </div>
+      <div>
+        <div class="section-label">Category</div>
+        <select id="nt_cat" style="width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:13px;margin-top:4px;outline:none">
+          <option value="student">Student</option>
+          <option value="faculty">Faculty</option>
+          <option value="payroll">Payroll</option>
+          <option value="course">Course</option>
+          <option value="person">Person / ID</option>
+          <option value="lookup">Lookup</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <div class="section-label">Description</div>
+        <input type="text" id="nt_desc" placeholder="What this table stores" style="width:100%;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:13px;outline:none;margin-top:4px">
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:flex-end">
+      <button class="btn btn-primary" onclick="saveNewTable()">Create table →</button>
+    </div>`;
+  document.getElementById('modalBg').classList.add('open');
+  setTimeout(()=>document.getElementById('nt_name').focus(), 50);
+}
+
+function saveNewTable() {
+  const n = (document.getElementById('nt_name').value||'').trim().toUpperCase();
+  if (!n) { document.getElementById('nt_name').focus(); return; }
+  tables.push({ id: nextId++, name: n, cat: document.getElementById('nt_cat').value, desc: (document.getElementById('nt_desc').value||'').trim(), isNew: false, cols: [] });
+  closeModal(); render(); showToast('Table added');
+}
+
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+function closeBg(e) { if (e.target === document.getElementById('modalBg')) closeModal(); }
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('view-tables').style.display = name === 'tables' ? '' : 'none';
+  document.getElementById('view-joins').style.display  = name === 'joins'  ? '' : 'none';
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(tables, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'banner_schema_directory.json'; a.click();
+  showToast('JSON exported');
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// Keyboard: Escape closes modal
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+render();
+</script>
+</body>
+</html>
