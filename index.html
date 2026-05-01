@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banner Schema Directory</title>
+<title>La Sierra University — Institutional Research</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,11 +12,12 @@
     --surface2: #1e2333;
     --border: #2a2f42;
     --border2: #363d56;
-    --text: #e8eaf0;
-    --muted: #7a8099;
-    --hint: #4a5068;
+    --text: #ffffff;
+    --muted: #d0d4e8;
+    --hint: #9ba3bf;
     --accent: #4f7cff;
     --accent-dim: #1e2d5c;
+    --gold: #f5c842;
     --green: #2dd4a0;
     --green-dim: #0d3328;
     --amber: #f5a623;
@@ -34,7 +35,6 @@
   html { font-size: 14px; }
   body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* ── Header ── */
   header {
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
@@ -46,13 +46,11 @@
   .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
   .header-actions { display: flex; gap: 8px; }
 
-  /* ── Layout ── */
   .container { max-width: 1280px; margin: 0 auto; padding: 2rem; }
   .page-title { font-family: var(--mono); font-size: 11px; color: var(--hint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
   .page-heading { font-size: 24px; font-weight: 300; color: var(--text); margin-bottom: 2rem; }
   .page-heading span { color: var(--accent); font-weight: 500; }
 
-  /* ── Toolbar ── */
   .toolbar { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
   .search-wrap { flex: 1; min-width: 200px; position: relative; }
   .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); opacity: 0.4; pointer-events: none; }
@@ -71,7 +69,6 @@
   }
   select:focus { border-color: var(--accent); }
 
-  /* ── Buttons ── */
   .btn {
     padding: 7px 14px; border-radius: 6px; font-size: 12px; font-family: var(--sans);
     cursor: pointer; border: 1px solid var(--border); background: var(--surface);
@@ -85,12 +82,10 @@
   .btn-sm { padding: 3px 10px; font-size: 11px; }
   .btn-icon { padding: 4px 8px; font-size: 13px; border-radius: 4px; }
 
-  /* ── Stats bar ── */
   .stats-bar { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
   .stat { font-size: 12px; color: var(--muted); }
   .stat strong { color: var(--text); font-weight: 500; }
 
-  /* ── Card grid ── */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 12px; }
   .card {
     background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
@@ -100,10 +95,10 @@
   .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.15s; }
   .card:hover { border-color: var(--border2); transform: translateY(-1px); }
   .card:hover::before { background: var(--accent); }
-  .card.is-new { border-color: #1a3d30; }
+  .card.is-new { border-color: #1a4035; }
   .card.is-new::before { background: var(--green); }
   .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 8px; }
-  .tname { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); letter-spacing: 0.04em; }
+  .tname { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--gold); letter-spacing: 0.04em; }
   .badges { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
   .badge {
     font-size: 10px; font-family: var(--mono); padding: 2px 7px; border-radius: 4px;
@@ -117,11 +112,10 @@
   .badge-lookup   { background: #1a1e2e;           color: var(--muted);  border-color: var(--border); }
   .badge-other    { background: var(--teal-dim);   color: var(--teal);   border-color: #0d3348; }
   .badge-new      { background: var(--green-dim);  color: var(--green);  border-color: #1a4035; font-size: 9px; }
-  .tdesc { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
-  .cols-preview { font-family: var(--mono); font-size: 10.5px; color: var(--hint); line-height: 1.6; }
-  .col-count { font-size: 11px; color: var(--hint); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+  .tdesc { font-size: 13px; color: #d0d4e8; margin-bottom: 10px; line-height: 1.5; }
+  .cols-preview { font-family: var(--mono); font-size: 12px; color: #9ba3bf; line-height: 1.6; }
+  .col-count { font-size: 12px; color: #9ba3bf; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
 
-  /* ── Modal ── */
   .modal-bg {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
     z-index: 200; align-items: center; justify-content: center; padding: 1rem;
@@ -135,21 +129,19 @@
   }
   @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 8px; }
-  .modal-title { font-family: var(--mono); font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .modal-title { font-family: var(--mono); font-size: 15px; font-weight: 500; margin-bottom: 4px; color: var(--gold); }
   .modal-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--muted); }
 
-  /* ── Column table ── */
   .col-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
   .col-table th { font-size: 10px; font-family: var(--mono); color: var(--hint); text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: left; }
   .col-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); font-size: 12px; vertical-align: middle; }
   .col-table tr:last-child td { border-bottom: none; }
   .col-table tr:hover td { background: var(--surface2); }
-  .col-name-cell { font-family: var(--mono); font-size: 11.5px; color: var(--text); }
+  .col-name-cell { font-family: var(--mono); font-size: 13px; color: #ffffff; }
   .col-type-cell { font-family: var(--mono); font-size: 10.5px; color: var(--muted); background: var(--bg); padding: 2px 6px; border-radius: 3px; display: inline-block; }
-  .col-desc-cell { font-size: 11.5px; color: var(--muted); }
-  .pk-badge { font-size: 9px; font-family: var(--mono); background: var(--accent-dim); color: var(--accent); border: 1px solid #263a7a; border-radius: 3px; padding: 1px 5px; }
+  .col-desc-cell { font-size: 13px; color: #d0d4e8; }
+  .pk-badge { font-size: 9px; font-family: var(--mono); background: var(--accent-dim); color: var(--accent); border: 1px solid #1e2d5c; border-radius: 3px; padding: 1px 5px; }
 
-  /* ── Add column row ── */
   .add-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
   .add-row input, .add-row select { font-size: 12px; padding: 6px 9px; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--text); font-family: var(--sans); outline: none; }
   .add-row input:focus, .add-row select:focus { border-color: var(--accent); }
@@ -159,17 +151,14 @@
   .section-label { font-size: 10px; font-family: var(--mono); color: var(--hint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; margin-top: 1.25rem; }
   .modal-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
-  /* ── Empty state ── */
   .empty { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--hint); }
   .empty p { font-size: 13px; margin-top: 0.5rem; }
 
-  /* ── Tabs ── */
   .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
   .tab { padding: 10px 18px; font-size: 12px; font-family: var(--mono); cursor: pointer; color: var(--hint); border-bottom: 2px solid transparent; letter-spacing: 0.05em; transition: color 0.15s; }
   .tab:hover { color: var(--muted); }
   .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* ── Join view ── */
   .join-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; }
   .join-title { font-family: var(--mono); font-size: 12px; color: var(--text); margin-bottom: 8px; }
   .join-title span { color: var(--muted); font-weight: 300; }
@@ -178,12 +167,10 @@
   .jk { font-family: var(--mono); font-size: 11px; color: var(--teal); }
   .join-note { font-size: 11px; color: var(--hint); font-style: italic; }
 
-  /* ── Toast ── */
   .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 16px; font-size: 12px; color: var(--text); z-index: 999; animation: fadeIn 0.2s ease; display: none; }
   .toast.show { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  /* ── Responsive ── */
   @media (max-width: 600px) {
     .container { padding: 1rem; }
     header { padding: 0 1rem; }
@@ -196,7 +183,7 @@
 <header>
   <div class="logo">
     <span class="logo-dot"></span>
-    BANNER / SCHEMA DIRECTORY
+    LA SIERRA UNIVERSITY / INSTITUTIONAL RESEARCH
   </div>
   <div class="header-actions">
     <button class="btn btn-sm" onclick="exportJSON()">Export JSON</button>
@@ -205,15 +192,14 @@
 </header>
 
 <div class="container">
-  <div class="page-title">Ellucian Banner ERP</div>
-  <div class="page-heading">Schema <span>Reference</span></div>
+  <div class="page-title">Ellucian Banner ERP — Institutional Research Office</div>
+  <div class="page-heading">La Sierra University <span>Schema Reference</span></div>
 
   <div class="tabs">
     <div class="tab active" onclick="switchTab('tables', this)">TABLES</div>
     <div class="tab" onclick="switchTab('joins', this)">QUERY JOINS</div>
   </div>
 
-  <!-- Tables view -->
   <div id="view-tables">
     <div class="toolbar">
       <div class="search-wrap">
@@ -235,7 +221,6 @@
     <div class="grid" id="grid"></div>
   </div>
 
-  <!-- Joins view -->
   <div id="view-joins" style="display:none">
     <div style="font-size:12px;color:var(--muted);margin-bottom:1.25rem;font-family:var(--mono)">
       Instructor query joins &mdash; <span style="color:var(--teal)">SSBSECT_TERM_CODE = '202604'</span>
@@ -263,12 +248,9 @@
   </div>
 </div>
 
-<!-- Modal -->
 <div class="modal-bg" id="modalBg" onclick="closeBg(event)">
   <div class="modal" id="modal"></div>
 </div>
-
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
@@ -399,13 +381,11 @@ function render() {
     if (t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)) return true;
     return t.cols.some(c => c.n.toLowerCase().includes(q) || (c.d && c.d.toLowerCase().includes(q)));
   });
-
   const cats = {};
   tables.forEach(t => cats[t.cat] = (cats[t.cat]||0)+1);
   document.getElementById('statsBar').innerHTML =
     `<div class="stat"><strong>${shown.length}</strong> of ${tables.length} tables</div>` +
     Object.entries(cats).map(([c,n])=>`<div class="stat">${catBadge(c)} <strong>${n}</strong></div>`).join('');
-
   const g = document.getElementById('grid');
   if (!shown.length) {
     g.innerHTML = `<div class="empty"><div style="font-size:2rem;opacity:0.3">⌀</div><p>No tables match your search.</p></div>`;
@@ -440,7 +420,6 @@ function modalHTML(t) {
     <td class="col-desc-cell">${c.d||''}</td>
     <td><button class="btn btn-icon btn-danger" onclick="removeCol(${t.id},${i})" title="Remove column">✕</button></td>
   </tr>`).join('');
-
   return `<div class="modal-head">
     <div>
       <div class="modal-title">${t.name}</div>
@@ -555,9 +534,7 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// Keyboard: Escape closes modal
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
 render();
 </script>
 </body>
