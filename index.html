@@ -284,114 +284,918 @@
 const CAT_LABELS = {student:'Student',faculty:'Faculty',payroll:'Payroll',course:'Course',person:'Person/ID',lookup:'Lookup',other:'Other'};
 
 let tables = [
-  {id:1,name:'SGBSTDN',cat:'student',desc:'Student general base record — primary student record',isNew:false,cols:[
-    {n:'SGBSTDN_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
-    {n:'SGBSTDN_TERM_CODE_EFF',t:'VARCHAR2',d:'Effective term code',pk:true},
-    {n:'SGBSTDN_STST_CODE',t:'VARCHAR2',d:'Student status code'},
-    {n:'SGBSTDN_LEVL_CODE',t:'VARCHAR2',d:'Academic level (UG/GR)'},
-    {n:'SGBSTDN_STYP_CODE',t:'VARCHAR2',d:'Student type code'},
-    {n:'SGBSTDN_MAJR_CODE_1',t:'VARCHAR2',d:'Primary major code'},
-    {n:'SGBSTDN_COLL_CODE_1',t:'VARCHAR2',d:'College code'},
-    {n:'SGBSTDN_DEGC_CODE_1',t:'VARCHAR2',d:'Degree code'},
-  ]},
-  {id:2,name:'SIBINST',cat:'faculty',desc:'Instructor base record — faculty registration and assignment',isNew:false,cols:[
-    {n:'SIBINST_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
-    {n:'SIBINST_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
-    {n:'SIBINST_DEPT_CODE',t:'VARCHAR2',d:'Department code'},
-    {n:'SIBINST_POSN',t:'VARCHAR2',d:'Position number'},
-    {n:'SIBINST_RANK_CODE',t:'VARCHAR2',d:'Faculty rank code'},
-    {n:'SIBINST_TENURE_CODE',t:'VARCHAR2',d:'Tenure status'},
-  ]},
-  {id:3,name:'PHREARN',cat:'payroll',desc:'Payroll earnings record — employee earnings by pay period',isNew:false,cols:[
-    {n:'PHREARN_PIDM',t:'NUMBER',d:'Internal person ID',pk:true},
-    {n:'PHREARN_PAYNO',t:'NUMBER',d:'Pay number / period',pk:true},
-    {n:'PHREARN_YEAR',t:'NUMBER',d:'Payroll year'},
-    {n:'PHREARN_EARN_CODE',t:'VARCHAR2',d:'Earnings code'},
-    {n:'PHREARN_HRS',t:'NUMBER',d:'Hours worked'},
-    {n:'PHREARN_AMT',t:'NUMBER',d:'Earnings amount'},
-    {n:'PHREARN_POSN',t:'VARCHAR2',d:'Position number'},
-  ]},
-  {id:4,name:'SCBCRSE',cat:'course',desc:'Course catalog base — latest effective row per subject+course. Always use MAX(EFF_TERM) subquery.',isNew:false,cols:[
-    {n:'SCBCRSE_SUBJ_CODE',t:'VARCHAR2',d:'Subject/discipline code',pk:true},
-    {n:'SCBCRSE_CRSE_NUMB',t:'VARCHAR2',d:'Course number',pk:true},
-    {n:'SCBCRSE_EFF_TERM',t:'VARCHAR2',d:'Effective term — use MAX() subquery for current row',pk:true},
-    {n:'SCBCRSE_TITLE',t:'VARCHAR2',d:'Course title'},
-    {n:'SCBCRSE_DEPT_CODE',t:'VARCHAR2',d:'Department code → STVDEPT'},
-    {n:'SCBCRSE_COLL_CODE',t:'VARCHAR2',d:'College code'},
-    {n:'SCBCRSE_CREDIT_HR_LOW',t:'NUMBER',d:'Minimum credit hours'},
-    {n:'SCBCRSE_CREDIT_HR_HIGH',t:'NUMBER',d:'Maximum credit hours'},
-  ]},
-  {id:5,name:'STVTERM',cat:'lookup',desc:'Term validation — valid term codes and date ranges',isNew:false,cols:[
-    {n:'STVTERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
-    {n:'STVTERM_DESC',t:'VARCHAR2',d:'Term description'},
-    {n:'STVTERM_START_DATE',t:'DATE',d:'Term start date'},
-    {n:'STVTERM_END_DATE',t:'DATE',d:'Term end date'},
-    {n:'STVTERM_FA_PROC_YR',t:'VARCHAR2',d:'Financial aid processing year'},
-  ]},
-  {id:6,name:'STVMAJR',cat:'lookup',desc:'Major validation — valid major codes and CIP classifications',isNew:false,cols:[
-    {n:'STVMAJR_CODE',t:'VARCHAR2',d:'Major code',pk:true},
-    {n:'STVMAJR_DESC',t:'VARCHAR2',d:'Major description'},
-    {n:'STVMAJR_CIPC_CODE',t:'VARCHAR2',d:'CIP classification code'},
-  ]},
-  {id:7,name:'GTVZIPC',cat:'lookup',desc:'ZIP code general validation table',isNew:false,cols:[
-    {n:'GTVZIPC_CODE',t:'VARCHAR2',d:'ZIP/postal code',pk:true},
-    {n:'GTVZIPC_CITY',t:'VARCHAR2',d:'City'},
-    {n:'GTVZIPC_STAT_CODE',t:'VARCHAR2',d:'State code'},
-    {n:'GTVZIPC_NATN_CODE',t:'VARCHAR2',d:'Nation code'},
-  ]},
-  {id:8,name:'FTYACCT',cat:'lookup',desc:'Finance account type validation table',isNew:false,cols:[
-    {n:'FTYACCT_ACCT_CODE',t:'VARCHAR2',d:'Account type code',pk:true},
-    {n:'FTYACCT_DESC',t:'VARCHAR2',d:'Account description'},
-    {n:'FTYACCT_NRML_BAL',t:'VARCHAR2',d:'Normal balance (D/C)'},
-  ]},
-  {id:9,name:'PTVJOBP',cat:'lookup',desc:'Payroll job position type validation',isNew:false,cols:[
-    {n:'PTVJOBP_CODE',t:'VARCHAR2',d:'Job position type code',pk:true},
-    {n:'PTVJOBP_DESC',t:'VARCHAR2',d:'Description'},
-  ]},
-  {id:10,name:'PTRECLS',cat:'payroll',desc:'HR employee class record — employee classification and benefits',isNew:false,cols:[
-    {n:'PTRECLS_CODE',t:'VARCHAR2',d:'Employee class code',pk:true},
-    {n:'PTRECLS_DESC',t:'VARCHAR2',d:'Description'},
-    {n:'PTRECLS_ECLS_CODE',t:'VARCHAR2',d:'Employee class category'},
-    {n:'PTRECLS_BCAT_CODE',t:'VARCHAR2',d:'Benefit category'},
-  ]},
-  {id:11,name:'SPRIDEN',cat:'person',desc:'Person identification — name, campus ID, PIDM. Filter CHANGE_IND IS NULL for current record.',isNew:false,cols:[
-    {n:'SPRIDEN_PIDM',t:'NUMBER',d:'Internal system person ID (joins all modules)',pk:true},
-    {n:'SPRIDEN_ID',t:'VARCHAR2',d:'Banner/campus ID (e.g. 900xxxxxx)',pk:true},
-    {n:'SPRIDEN_CHANGE_IND',t:'VARCHAR2',d:'NULL = current record; non-null = historical name change'},
-    {n:'SPRIDEN_LAST_NAME',t:'VARCHAR2',d:'Last name'},
-    {n:'SPRIDEN_FIRST_NAME',t:'VARCHAR2',d:'First name'},
-    {n:'SPRIDEN_MI',t:'VARCHAR2',d:'Middle initial'},
-    {n:'SPRIDEN_ENTITY_IND',t:'VARCHAR2',d:'P=Person, C=Corporation'},
-  ]},
-  {id:12,name:'SIRASGN',cat:'faculty',desc:'Section instructor assignment — links instructor PIDM to a CRN for a term',isNew:false,cols:[
-    {n:'SIRASGN_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
-    {n:'SIRASGN_CRN',t:'VARCHAR2',d:'Course reference number',pk:true},
-    {n:'SIRASGN_PIDM',t:'NUMBER',d:'Instructor internal person ID → SPRIDEN',pk:true},
-    {n:'SIRASGN_CATEGORY',t:'VARCHAR2',d:'Assignment category (P=primary, etc.)'},
-    {n:'SIRASGN_PERCENT_RESPONSE',t:'NUMBER',d:'Percent of grading responsibility'},
-    {n:'SIRASGN_OVER_RIDE',t:'VARCHAR2',d:'Override indicator'},
-    {n:'SIRASGN_INST_MTHD_CODE',t:'VARCHAR2',d:'Instructional method code'},
-  ]},
-  {id:13,name:'SSBSECT',cat:'course',desc:'Schedule section base — one row per offered section (CRN) per term',isNew:false,cols:[
-    {n:'SSBSECT_TERM_CODE',t:'VARCHAR2',d:'Term code',pk:true},
-    {n:'SSBSECT_CRN',t:'VARCHAR2',d:'Course reference number (unique per term)',pk:true},
-    {n:'SSBSECT_SUBJ_CODE',t:'VARCHAR2',d:'Subject code → SCBCRSE'},
-    {n:'SSBSECT_CRSE_NUMB',t:'VARCHAR2',d:'Course number → SCBCRSE'},
-    {n:'SSBSECT_SEQ_NUMB',t:'VARCHAR2',d:'Section sequence number (001, 002…)'},
-    {n:'SSBSECT_CAMP_CODE',t:'VARCHAR2',d:'Campus code'},
-    {n:'SSBSECT_PTRM_CODE',t:'VARCHAR2',d:'Part-of-term code'},
-    {n:'SSBSECT_ENRL',t:'NUMBER',d:'Current enrollment count'},
-    {n:'SSBSECT_SEATS_AVAIL',t:'NUMBER',d:'Available seats'},
-    {n:'SSBSECT_MAX_ENRL',t:'NUMBER',d:'Maximum enrollment cap'},
-    {n:'SSBSECT_SSTS_CODE',t:'VARCHAR2',d:'Section status (A=Active, C=Cancelled)'},
-    {n:'SSBSECT_SCHD_CODE',t:'VARCHAR2',d:'Schedule type code (LEC, LAB, etc.)'},
-    {n:'SSBSECT_INSM_CODE',t:'VARCHAR2',d:'Instructional method code'},
-  ]},
-  {id:14,name:'STVDEPT',cat:'lookup',desc:'Department validation — decode department codes to descriptions',isNew:false,cols:[
-    {n:'STVDEPT_CODE',t:'VARCHAR2',d:'Department code',pk:true},
-    {n:'STVDEPT_DESC',t:'VARCHAR2',d:'Department description'},
-    {n:'STVDEPT_ACTIVITY_DATE',t:'DATE',d:'Last update date'},
-  ]},
+  {
+    "id": 1,
+    "name": "SGBSTDN",
+    "cat": "student",
+    "desc": "Student general base record — primary student record",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SGBSTDN_PIDM",
+        "t": "NUMBER",
+        "d": "Internal person ID",
+        "pk": true
+      },
+      {
+        "n": "SGBSTDN_TERM_CODE_EFF",
+        "t": "VARCHAR2",
+        "d": "Effective term code",
+        "pk": true
+      },
+      {
+        "n": "SGBSTDN_STST_CODE",
+        "t": "VARCHAR2",
+        "d": "Student status code"
+      },
+      {
+        "n": "SGBSTDN_LEVL_CODE",
+        "t": "VARCHAR2",
+        "d": "Academic level (UG/GR)"
+      },
+      {
+        "n": "SGBSTDN_STYP_CODE",
+        "t": "VARCHAR2",
+        "d": "Student type code"
+      },
+      {
+        "n": "SGBSTDN_MAJR_CODE_1",
+        "t": "VARCHAR2",
+        "d": "Primary major code"
+      },
+      {
+        "n": "SGBSTDN_COLL_CODE_1",
+        "t": "VARCHAR2",
+        "d": "College code"
+      },
+      {
+        "n": "SGBSTDN_DEGC_CODE_1",
+        "t": "VARCHAR2",
+        "d": "Degree code"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "SIBINST",
+    "cat": "faculty",
+    "desc": "Instructor base record — faculty registration and assignment",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SIBINST_PIDM",
+        "t": "NUMBER",
+        "d": "Internal person ID",
+        "pk": true
+      },
+      {
+        "n": "SIBINST_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code",
+        "pk": true
+      },
+      {
+        "n": "SIBINST_DEPT_CODE",
+        "t": "VARCHAR2",
+        "d": "Department code"
+      },
+      {
+        "n": "SIBINST_POSN",
+        "t": "VARCHAR2",
+        "d": "Position number"
+      },
+      {
+        "n": "SIBINST_RANK_CODE",
+        "t": "VARCHAR2",
+        "d": "Faculty rank code"
+      },
+      {
+        "n": "SIBINST_TENURE_CODE",
+        "t": "VARCHAR2",
+        "d": "Tenure status"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "PHREARN",
+    "cat": "payroll",
+    "desc": "Payroll earnings record — employee earnings by pay period",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "PHREARN_PIDM",
+        "t": "NUMBER",
+        "d": "Internal person ID",
+        "pk": true
+      },
+      {
+        "n": "PHREARN_PAYNO",
+        "t": "NUMBER",
+        "d": "Pay number / period",
+        "pk": true
+      },
+      {
+        "n": "PHREARN_YEAR",
+        "t": "NUMBER",
+        "d": "Payroll year"
+      },
+      {
+        "n": "PHREARN_EARN_CODE",
+        "t": "VARCHAR2",
+        "d": "Earnings code"
+      },
+      {
+        "n": "PHREARN_HRS",
+        "t": "NUMBER",
+        "d": "Hours worked"
+      },
+      {
+        "n": "PHREARN_AMT",
+        "t": "NUMBER",
+        "d": "Earnings amount"
+      },
+      {
+        "n": "PHREARN_POSN",
+        "t": "VARCHAR2",
+        "d": "Position number"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "SCBCRSE",
+    "cat": "course",
+    "desc": "Course catalog base — latest effective row per subject+course. Always use MAX(EFF_TERM) subquery.",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SCBCRSE_SUBJ_CODE",
+        "t": "VARCHAR2",
+        "d": "Subject/discipline code",
+        "pk": true
+      },
+      {
+        "n": "SCBCRSE_CRSE_NUMB",
+        "t": "VARCHAR2",
+        "d": "Course number",
+        "pk": true
+      },
+      {
+        "n": "SCBCRSE_EFF_TERM",
+        "t": "VARCHAR2",
+        "d": "Effective term — use MAX() subquery for current row",
+        "pk": true
+      },
+      {
+        "n": "SCBCRSE_TITLE",
+        "t": "VARCHAR2",
+        "d": "Course title"
+      },
+      {
+        "n": "SCBCRSE_DEPT_CODE",
+        "t": "VARCHAR2",
+        "d": "Department code → STVDEPT"
+      },
+      {
+        "n": "SCBCRSE_COLL_CODE",
+        "t": "VARCHAR2",
+        "d": "College code"
+      },
+      {
+        "n": "SCBCRSE_CREDIT_HR_LOW",
+        "t": "NUMBER",
+        "d": "Minimum credit hours"
+      },
+      {
+        "n": "SCBCRSE_CREDIT_HR_HIGH",
+        "t": "NUMBER",
+        "d": "Maximum credit hours"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "STVTERM",
+    "cat": "lookup",
+    "desc": "Term validation — valid term codes and date ranges",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "STVTERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code",
+        "pk": true
+      },
+      {
+        "n": "STVTERM_DESC",
+        "t": "VARCHAR2",
+        "d": "Term description"
+      },
+      {
+        "n": "STVTERM_START_DATE",
+        "t": "DATE",
+        "d": "Term start date"
+      },
+      {
+        "n": "STVTERM_END_DATE",
+        "t": "DATE",
+        "d": "Term end date"
+      },
+      {
+        "n": "STVTERM_FA_PROC_YR",
+        "t": "VARCHAR2",
+        "d": "Financial aid processing year"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "STVMAJR",
+    "cat": "lookup",
+    "desc": "Major validation — valid major codes and CIP classifications",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "STVMAJR_CODE",
+        "t": "VARCHAR2",
+        "d": "Major code",
+        "pk": true
+      },
+      {
+        "n": "STVMAJR_DESC",
+        "t": "VARCHAR2",
+        "d": "Major description"
+      },
+      {
+        "n": "STVMAJR_CIPC_CODE",
+        "t": "VARCHAR2",
+        "d": "CIP classification code"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "GTVZIPC",
+    "cat": "lookup",
+    "desc": "ZIP code general validation table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "GTVZIPC_CODE",
+        "t": "VARCHAR2",
+        "d": "ZIP/postal code",
+        "pk": true
+      },
+      {
+        "n": "GTVZIPC_CITY",
+        "t": "VARCHAR2",
+        "d": "City"
+      },
+      {
+        "n": "GTVZIPC_STAT_CODE",
+        "t": "VARCHAR2",
+        "d": "State code"
+      },
+      {
+        "n": "GTVZIPC_NATN_CODE",
+        "t": "VARCHAR2",
+        "d": "Nation code"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "FTYACCT",
+    "cat": "lookup",
+    "desc": "Finance account type validation table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "FTYACCT_ACCT_CODE",
+        "t": "VARCHAR2",
+        "d": "Account type code",
+        "pk": true
+      },
+      {
+        "n": "FTYACCT_DESC",
+        "t": "VARCHAR2",
+        "d": "Account description"
+      },
+      {
+        "n": "FTYACCT_NRML_BAL",
+        "t": "VARCHAR2",
+        "d": "Normal balance (D/C)"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "PTVJOBP",
+    "cat": "lookup",
+    "desc": "Payroll job position type validation",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "PTVJOBP_CODE",
+        "t": "VARCHAR2",
+        "d": "Job position type code",
+        "pk": true
+      },
+      {
+        "n": "PTVJOBP_DESC",
+        "t": "VARCHAR2",
+        "d": "Description"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "PTRECLS",
+    "cat": "payroll",
+    "desc": "HR employee class record — employee classification and benefits",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "PTRECLS_CODE",
+        "t": "VARCHAR2",
+        "d": "Employee class code",
+        "pk": true
+      },
+      {
+        "n": "PTRECLS_DESC",
+        "t": "VARCHAR2",
+        "d": "Description"
+      },
+      {
+        "n": "PTRECLS_ECLS_CODE",
+        "t": "VARCHAR2",
+        "d": "Employee class category"
+      },
+      {
+        "n": "PTRECLS_BCAT_CODE",
+        "t": "VARCHAR2",
+        "d": "Benefit category"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "SPRIDEN",
+    "cat": "person",
+    "desc": "Person identification — name, campus ID, PIDM. Filter CHANGE_IND IS NULL for current record.",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SPRIDEN_PIDM",
+        "t": "NUMBER",
+        "d": "Internal system person ID (joins all modules)",
+        "pk": true
+      },
+      {
+        "n": "SPRIDEN_ID",
+        "t": "VARCHAR2",
+        "d": "Banner/campus ID (e.g. 900xxxxxx)",
+        "pk": true
+      },
+      {
+        "n": "SPRIDEN_CHANGE_IND",
+        "t": "VARCHAR2",
+        "d": "NULL = current record; non-null = historical name change"
+      },
+      {
+        "n": "SPRIDEN_LAST_NAME",
+        "t": "VARCHAR2",
+        "d": "Last name"
+      },
+      {
+        "n": "SPRIDEN_FIRST_NAME",
+        "t": "VARCHAR2",
+        "d": "First name"
+      },
+      {
+        "n": "SPRIDEN_MI",
+        "t": "VARCHAR2",
+        "d": "Middle initial"
+      },
+      {
+        "n": "SPRIDEN_ENTITY_IND",
+        "t": "VARCHAR2",
+        "d": "P=Person, C=Corporation"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "SIRASGN",
+    "cat": "faculty",
+    "desc": "Section instructor assignment — links instructor PIDM to a CRN for a term",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SIRASGN_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code",
+        "pk": true
+      },
+      {
+        "n": "SIRASGN_CRN",
+        "t": "VARCHAR2",
+        "d": "Course reference number",
+        "pk": true
+      },
+      {
+        "n": "SIRASGN_PIDM",
+        "t": "NUMBER",
+        "d": "Instructor internal person ID → SPRIDEN",
+        "pk": true
+      },
+      {
+        "n": "SIRASGN_CATEGORY",
+        "t": "VARCHAR2",
+        "d": "Assignment category (P=primary, etc.)"
+      },
+      {
+        "n": "SIRASGN_PERCENT_RESPONSE",
+        "t": "NUMBER",
+        "d": "Percent of grading responsibility"
+      },
+      {
+        "n": "SIRASGN_OVER_RIDE",
+        "t": "VARCHAR2",
+        "d": "Override indicator"
+      },
+      {
+        "n": "SIRASGN_INST_MTHD_CODE",
+        "t": "VARCHAR2",
+        "d": "Instructional method code"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "SSBSECT",
+    "cat": "course",
+    "desc": "Schedule section base — one row per offered section (CRN) per term",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SSBSECT_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code",
+        "pk": true
+      },
+      {
+        "n": "SSBSECT_CRN",
+        "t": "VARCHAR2",
+        "d": "Course reference number (unique per term)",
+        "pk": true
+      },
+      {
+        "n": "SSBSECT_SUBJ_CODE",
+        "t": "VARCHAR2",
+        "d": "Subject code → SCBCRSE"
+      },
+      {
+        "n": "SSBSECT_CRSE_NUMB",
+        "t": "VARCHAR2",
+        "d": "Course number → SCBCRSE"
+      },
+      {
+        "n": "SSBSECT_SEQ_NUMB",
+        "t": "VARCHAR2",
+        "d": "Section sequence number (001, 002…)"
+      },
+      {
+        "n": "SSBSECT_CAMP_CODE",
+        "t": "VARCHAR2",
+        "d": "Campus code"
+      },
+      {
+        "n": "SSBSECT_PTRM_CODE",
+        "t": "VARCHAR2",
+        "d": "Part-of-term code"
+      },
+      {
+        "n": "SSBSECT_ENRL",
+        "t": "NUMBER",
+        "d": "Current enrollment count"
+      },
+      {
+        "n": "SSBSECT_SEATS_AVAIL",
+        "t": "NUMBER",
+        "d": "Available seats"
+      },
+      {
+        "n": "SSBSECT_MAX_ENRL",
+        "t": "NUMBER",
+        "d": "Maximum enrollment cap"
+      },
+      {
+        "n": "SSBSECT_SSTS_CODE",
+        "t": "VARCHAR2",
+        "d": "Section status (A=Active, C=Cancelled)"
+      },
+      {
+        "n": "SSBSECT_SCHD_CODE",
+        "t": "VARCHAR2",
+        "d": "Schedule type code (LEC, LAB, etc.)"
+      },
+      {
+        "n": "SSBSECT_INSM_CODE",
+        "t": "VARCHAR2",
+        "d": "Instructional method code"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "STVDEPT",
+    "cat": "lookup",
+    "desc": "Department validation — decode department codes to descriptions",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "STVDEPT_CODE",
+        "t": "VARCHAR2",
+        "d": "Department code",
+        "pk": true
+      },
+      {
+        "n": "STVDEPT_DESC",
+        "t": "VARCHAR2",
+        "d": "Department description"
+      },
+      {
+        "n": "STVDEPT_ACTIVITY_DATE",
+        "t": "DATE",
+        "d": "Last update date"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "SHRDGMR",
+    "cat": "student",
+    "desc": "Student graduation record — one row per student degree/graduation record.",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SHRDGMR_DEGC_CODE",
+        "t": "VARCHAR2",
+        "d": "Students degree code (BS, BA, etc.).",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_DEGS_CODE",
+        "t": "VARCHAR2",
+        "d": "Status of students degree, for example sought, awarded, etc.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_LEVL_CODE",
+        "t": "VARCHAR2",
+        "d": "Level to which degree applies (undergraduate, graduate, etc).",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_COLL_CODE_1",
+        "t": "VARCHAR2",
+        "d": "Degree College Code 1.  College offering the degree.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_MAJR_CODE_1",
+        "t": "VARCHAR2",
+        "d": "Degree Major Code 1.  First major associated with the degree.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_GRAD_DATE",
+        "t": "VARCHAR2",
+        "d": "Graduation Date.  Graduation date of student.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_CAMP_CODE",
+        "t": "VARCHAR2",
+        "d": "Degree Campus Code.  Campus offering the degree.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_TERM_CODE_GRAD",
+        "t": "VARCHAR2",
+        "d": "Term in which the student graduates.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_PIDM",
+        "t": "NUMBER",
+        "d": "Internal identification number of the person",
+        "pk": true
+      },
+      {
+        "n": "SHRDGMR_ACYR_CODE",
+        "t": "VARCHAR2",
+        "d": "Year in which the student graduates.",
+        "pk": false
+      },
+      {
+        "n": "SHRDGMR_DEPT_CODE",
+        "t": "VARCHAR2",
+        "d": "Department code for degree",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "STVCOLL",
+    "cat": "lookup",
+    "desc": "College validation — decode college codes to descriptions",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "STVCOLL_CODE",
+        "t": "VARCHAR2",
+        "d": "College Code",
+        "pk": true
+      },
+      {
+        "n": "STVCOLL_DESC",
+        "t": "VARCHAR2",
+        "d": "College description",
+        "pk": false
+      },
+      {
+        "n": "STVCOLL_ACTIVITY_DATE",
+        "t": "DATE",
+        "d": "This field identifies the most recent date a record was created or updated.",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "STVDEGC",
+    "cat": "lookup",
+    "desc": "Degree Code Validation Table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "STVDEGC_CODE",
+        "t": "VARCHAR2",
+        "d": "Degree Code",
+        "pk": true
+      },
+      {
+        "n": "STVDEGC_DESC",
+        "t": "VARCHAR2",
+        "d": "Degree description",
+        "pk": false
+      },
+      {
+        "n": "STVDEGC_ACTIVITY_DATE",
+        "t": "DATE",
+        "d": "This field identifies the most recent date a record was created or updated.",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "SFRSTCR",
+    "cat": "student",
+    "desc": "Student Course Registration Repeating Table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SFRSTCR_PIDM",
+        "t": "VARCHAR2",
+        "d": "Internal Identification Number of the person registered.",
+        "pk": true
+      },
+      {
+        "n": "SFRSTCR_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "This field identifies the registration term code.",
+        "pk": false
+      },
+      {
+        "n": "SFRSTCR_CRN",
+        "t": "VARCHAR2",
+        "d": "This field identifies the course reference number associated with the class section.",
+        "pk": false
+      },
+      {
+        "n": "SFRSTCR_RSTS_CODE",
+        "t": "VARCHAR2",
+        "d": "This field identifies the course registration status associated with this CRN.",
+        "pk": false
+      },
+      {
+        "n": "SFRSTCR_CREDIT_HR",
+        "t": "VARCHAR2",
+        "d": "This field identifies the credit hours associated with this CRN.",
+        "pk": false
+      },
+      {
+        "n": "SFRSTCR_LEVL_CODE",
+        "t": "VARCHAR2",
+        "d": "This field identifies the level the registrant is enrolled for this CRN.",
+        "pk": false
+      },
+      {
+        "n": "SFRSTCR_CAMP_CODE",
+        "t": "VARCHAR2",
+        "d": "This field identifies the campus code of this CRN.",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "SSRMEET",
+    "cat": "course",
+    "desc": "Section Meeting Times Repeating Table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SSRMEET_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code",
+        "pk": true
+      },
+      {
+        "n": "SSRMEET_CRN",
+        "t": "VARCHAR2",
+        "d": "Course reference number (unique per term)",
+        "pk": true
+      },
+      {
+        "n": "SSRMEET_BEGIN_TIME",
+        "t": "VARCHAR2",
+        "d": "Begin Time of the course section being scheduled.  In the format HHMM",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_END_TIME",
+        "t": "VARCHAR2",
+        "d": "End Time of the course section being scheduled. In the format HHMM",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_BLDG_CODE",
+        "t": "VARCHAR2",
+        "d": "The building where the course section will be scheduled",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_ROOM_CODE",
+        "t": "VARCHAR2",
+        "d": "The room where the course section will be scheduled",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_START_DATE",
+        "t": "DATE",
+        "d": "Section Meeting Start Date",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_END_DATE",
+        "t": "VARCHAR2",
+        "d": "Section End Date",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_SUN_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Sunday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_MON_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Monday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_TUE_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Tuesday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_WED_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Wednesday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_THU_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Thrusday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_FRI_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Friday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_SAT_DAY",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Time Saturday Indicator",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_MTYP_CODE",
+        "t": "VARCHAR2",
+        "d": "The meeting type code assigned to this meeting time of the section",
+        "pk": false
+      },
+      {
+        "n": "SSRMEET_HRS_WEEK",
+        "t": "VARCHAR2",
+        "d": "Section Meeting Hours per Week",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "SHRTGPA",
+    "cat": "student",
+    "desc": "Student Term GPA Table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SHRTGPA_PIDM",
+        "t": "NUMBER",
+        "d": "Internal Identification Number of Student",
+        "pk": true
+      },
+      {
+        "n": "SHRTGPA_TERM_CODE",
+        "t": "VARCHAR2",
+        "d": "Term code for the GPA hours and calculation",
+        "pk": false
+      },
+      {
+        "n": "SHRTGPA_LEVL_CODE",
+        "t": "VARCHAR2",
+        "d": "Level Code associated with GPA hours and calculations",
+        "pk": false
+      },
+      {
+        "n": "SHRTGPA_GPA_TYPE_IND",
+        "t": "VARCHAR2",
+        "d": "GPA Type Indicator.  Valid values are: I - Institutional Course Term GPA, and T - Transfer Course Term GPA",
+        "pk": false
+      },
+      {
+        "n": "SHRTGPA_GPA",
+        "t": "VARCHAR2",
+        "d": "GPA for the term.  Calculated by dividing GPA hours for the term into Quality points for the term",
+        "pk": false
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "SHRLGPA",
+    "cat": "student",
+    "desc": "Student Level GPA Table",
+    "isNew": false,
+    "cols": [
+      {
+        "n": "SHRLGPA_PIDM",
+        "t": "NUMBER",
+        "d": "Internal Identification Number of Student",
+        "pk": true
+      },
+      {
+        "n": "SHRLGPA_LEVL_CODE",
+        "t": "VARCHAR2",
+        "d": "Level Code associated with GPA hours and calculations",
+        "pk": false
+      },
+      {
+        "n": "SHRLGPA_GPA_TYPE_IND",
+        "t": "VARCHAR2",
+        "d": "GPA Type Indicator.  Valid values are: I - Institutional Course GPA, T - Transfer Course GPA, and O - Overall Course GPA",
+        "pk": false
+      },
+      {
+        "n": "SHRLGPA_GPA",
+        "t": "VARCHAR2",
+        "d": "GPA for the level.  Calculated by dividing GPA hours for the level into Quality points for the level",
+        "pk": false
+      }
+    ]
+  }
 ];
 let nextId = 15;
 
