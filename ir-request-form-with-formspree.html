@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Institutional Research Request — La Sierra University</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  /* ── Reset & Base ────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --lsu-blue:   #003366;
+    --lsu-gold:   #C9A84C;
+    --lsu-gold-lt:#F5E9C8;
+    --lsu-navy:   #001F45;
+    --lsu-sky:    #E8F0F8;
+    --text-dark:  #1A1A2E;
+    --text-mid:   #4A5568;
+    --text-light: #718096;
+    --border:     #CBD5E0;
+    --white:      #FFFFFF;
+    --success:    #2D7D46;
+    --error:      #C0392B;
+    --radius:     8px;
+    --shadow:     0 2px 12px rgba(0,51,102,0.10);
+    --shadow-lg:  0 8px 32px rgba(0,51,102,0.16);
+  }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: linear-gradient(160deg, #f0f4f9 0%, #e8eef6 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    padding: 32px 16px 64px;
+  }
+
+  /* ── Layout ──────────────────────────────────────────────────────── */
+  .form-shell {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ── Header card ─────────────────────────────────────────────────── */
+  .form-header {
+    background: var(--lsu-blue);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .header-accent {
+    height: 6px;
+    background: linear-gradient(90deg, var(--lsu-gold) 0%, #e8c96a 50%, var(--lsu-gold) 100%);
+  }
+  .header-body {
+    padding: 32px 40px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .header-logo-wrap {
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 1px;
+    padding: 2px 3px;
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+  .header-logo-text {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .logo-lsu {
+    background: var(--lsu-gold);
+    color: var(--lsu-blue);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .logo-dot {
+    color: var(--lsu-gold);
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.6;
+  }
+  .logo-full {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+  }
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .header-text .subtitle {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.72);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .header-text .subtitle strong {
+    color: var(--lsu-gold);
+    font-weight: 500;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: rgba(255,255,255,0.10);
+    padding: 14px 40px 20px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 6px;
+  }
+  .progress-label span:last-child { color: var(--lsu-gold); font-weight: 600; }
+  .progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--lsu-gold), #e8c96a);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* ── Section cards ───────────────────────────────────────────────── */
+  .section-card {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    padding: 32px 40px;
+    border-left: 4px solid transparent;
+    transition: border-color 0.3s;
+    display: none;
+  }
+  .section-card.active { display: block; border-left-color: var(--lsu-gold); }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--lsu-sky);
+    color: var(--lsu-blue);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .section-tag .dot {
+    width: 6px; height: 6px;
+    background: var(--lsu-gold);
+    border-radius: 50%;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--lsu-blue);
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 0.87rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+  hr.section-rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  /* ── Fields ──────────────────────────────────────────────────────── */
+  .field { margin-bottom: 22px; }
+  .field label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .field label .req {
+    color: var(--lsu-gold);
+    margin-left: 2px;
+  }
+  .field .hint {
+    font-size: 0.80rem;
+    color: var(--text-light);
+    margin-bottom: 6px;
+    font-weight: 300;
+  }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field input[type="date"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text-dark);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--lsu-blue);
+    box-shadow: 0 0 0 3px rgba(0,51,102,0.10);
+  }
+  .field input.error,
+  .field select.error,
+  .field textarea.error {
+    border-color: var(--error);
+  }
+  .field .err-msg {
+    font-size: 0.78rem;
+    color: var(--error);
+    margin-top: 4px;
+    display: none;
+  }
+  .field .err-msg.show { display: block; }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+  /* Two-column grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width:560px){ .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Checkbox/radio group */
+  .check-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  @media(max-width:520px){ .check-group { grid-template-columns: 1fr; } }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--lsu-sky);
+    border: 1.5px solid transparent;
+    border-radius: var(--radius);
+    padding: 9px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 0.875rem;
+    color: var(--text-mid);
+  }
+  .check-item:hover { border-color: var(--lsu-blue); background: #dce8f5; }
+  .check-item input { accent-color: var(--lsu-blue); width: 16px; height: 16px; cursor: pointer; }
+  .check-item.checked { border-color: var(--lsu-blue); background: #dce8f5; color: var(--lsu-blue); font-weight: 500; }
+
+  /* ── Navigation ──────────────────────────────────────────────────── */
+  .nav-bar {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .nav-steps {
+    display: flex;
+    gap: 6px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .nav-dot.active { background: var(--lsu-blue); transform: scale(1.3); }
+  .nav-dot.done  { background: var(--lsu-gold); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: var(--radius);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-prev {
+    background: var(--white);
+    color: var(--text-mid);
+    border: 1.5px solid var(--border);
+  }
+  .btn-prev:hover { border-color: var(--lsu-blue); color: var(--lsu-blue); }
+  .btn-next {
+    background: var(--lsu-blue);
+    color: var(--white);
+  }
+  .btn-next:hover { background: var(--lsu-navy); }
+  .btn-submit {
+    background: linear-gradient(135deg, var(--lsu-gold) 0%, #b8943c 100%);
+    color: var(--lsu-blue);
+  }
+  .btn-submit:hover { filter: brightness(1.08); }
+  .btn svg { width: 16px; height: 16px; }
+
+  /* ── Thank-you screen ────────────────────────────────────────────── */
+  #thank-you {
+    display: none;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .ty-icon {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--lsu-gold) 0%, #b8943c 100%);
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ty-icon svg { width: 36px; height: 36px; color: var(--lsu-blue); }
+  #thank-you h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--lsu-blue); margin-bottom: 12px; }
+  #thank-you p  { color: var(--text-mid); font-size: 0.95rem; max-width: 460px; margin: 0 auto 8px; line-height: 1.6; }
+  #thank-you .ref { font-size: 0.82rem; color: var(--text-light); margin-top: 16px; }
+
+  /* ── Notice box ──────────────────────────────────────────────────── */
+  .notice {
+    background: var(--lsu-gold-lt);
+    border-left: 4px solid var(--lsu-gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 12px 16px;
+    font-size: 0.83rem;
+    color: #7A5C10;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ── Signature block ─────────────────────────────────────────────── */
+  .sig-pad {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-style: italic;
+    background: #fafafa;
+    margin-top: 6px;
+  }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Animations */
+  .section-card.active { animation: fadeUp 0.35s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="form-shell">
+
+  <!-- ── HEADER ───────────────────────────────────────────────────── -->
+  <div class="form-header">
+    <div class="header-accent"></div>
+    <div class="header-body">
+      <div class="header-logo-wrap"><img src="data:image/png;base64,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" alt="La Sierra University" style="height:56px;width:auto;margin-top:2px;"/></div>
+      <div class="header-text">
+        <h1>Institutional Research Request</h1>
+        <div class="subtitle">
+          Office of Institutional Research &nbsp;·&nbsp; La Sierra University<br>
+          <strong>All submissions are reviewed within 3 business days.</strong>
+          &nbsp;Fields marked <strong style="color:#C9A84C">✦</strong> are required.
+        </div>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="prog-label">Section 1 of 6</span>
+        <span id="prog-pct">0% complete</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 1 — Requester Information
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card active" id="sec-1">
+    <div class="section-tag"><span class="dot"></span>Section A</div>
+    <h2 class="section-title">Requester Information</h2>
+    <p class="section-desc">Tell us who you are and how to reach you with questions or the completed report.</p>
+    <hr class="section-rule"/>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>First Name <span class="req">✦</span></label>
+        <input type="text" id="fname" placeholder="e.g. Maria"/>
+        <div class="err-msg" id="err-fname">Please enter your first name.</div>
+      </div>
+      <div class="field">
+        <label>Last Name <span class="req">✦</span></label>
+        <input type="text" id="lname" placeholder="e.g. Garcia"/>
+        <div class="err-msg" id="err-lname">Please enter your last name.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Title / Role <span class="req">✦</span></label>
+      <input type="text" id="title" placeholder="e.g. Associate Dean, Accreditation Coordinator"/>
+      <div class="err-msg" id="err-title">Please enter your title.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Department / School <span class="req">✦</span></label>
+        <select id="dept">
+          <option value="">— Select —</option>
+          <option>Office of the Provost</option>
+          <option>College of Arts &amp; Sciences</option>
+          <option>School of Business</option>
+          <option>School of Education</option>
+          <option>H.M.S. Richards Divinity School</option>
+          <option>Graduate Studies</option>
+          <option>Student Affairs</option>
+          <option>Enrollment Management</option>
+          <option>Financial Services</option>
+          <option>Human Resources</option>
+          <option>Athletics</option>
+          <option>Other</option>
+        </select>
+        <div class="err-msg" id="err-dept">Please select your department.</div>
+      </div>
+      <div class="field">
+        <label>LSU Email Address <span class="req">✦</span></label>
+        <input type="email" id="email" placeholder="username@lasierra.edu"/>
+        <div class="err-msg" id="err-email">Please enter a valid LSU email address.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Phone (optional)</label>
+      <input type="tel" id="phone" placeholder="(951) 785-2483"/>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 2 — Request Classification
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-2">
+    <div class="section-tag"><span class="dot"></span>Section B</div>
+    <h2 class="section-title">Request Classification</h2>
+    <p class="section-desc">Help us categorize your request so it can be routed and prioritized correctly.</p>
+    <hr class="section-rule"/>
+
+    <div class="field">
+      <label>Request Type <span class="req">✦</span> <span style="font-weight:300;font-size:.82rem">(select all that apply)</span></label>
+      <div class="check-group" id="req-type-group">
+        <label class="check-item"><input type="checkbox" value="Accreditation / Compliance"> Accreditation / Compliance</label>
+        <label class="check-item"><input type="checkbox" value="Strategic Planning"> Strategic Planning</label>
+        <label class="check-item"><input type="checkbox" value="Program Review"> Program Review</label>
+        <label class="check-item"><input type="checkbox" value="Grant / Funding Support"> Grant / Funding Support</label>
+        <label class="check-item"><input type="checkbox" value="Faculty / Staff Report"> Faculty / Staff Report</label>
+        <label class="check-item"><input type="checkbox" value="Student Success / Retention"> Student Success / Retention</label>
+        <label class="check-item"><input type="checkbox" value="Enrollment Management"> Enrollment Management</label>
+        <label class="check-item"><input type="checkbox" value="Ad Hoc Data Pull"> Ad Hoc Data Pull</label>
+        <label class="check-item"><input type="checkbox" value="Benchmarking / Peer Comparison"> Benchmarking / Peer Comparison</label>
+        <label class="check-item"><input type="checkbox" value="Other"> Other</label>
+      </div>
+      <div class="err-msg" id="err-req-type">Please select at least one request type.</div>
+    </div>
+
+    <div class="field">
+      <label>Preferred Delivery Format</label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" value="Excel / CSV"> Excel / CSV</label>
+        <label class="check-item"><input type="checkbox" value="PDF Report"> PDF Report</label>
+        <label class="check-item"><input type="checkbox" value="Dashboard / Visualization"> Dashboard / Visualization</label>
+        <label class="check-item"><input type="checkbox" value="Presentation Slides"> Presentation Slides</label>
+        <label class="check-item"><input type="checkbox" value="Summary Memo"> Summary Memo</label>
+        <label class="check-item"><input type="checkbox" value="No Preference"> No Preference</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Confidentiality Level <span class="req">✦</span></label>
+      <div class="check-group">
+        <label class="check-item"><input type="radio" name="conf" value="Public"> Public</label>
+        <label class="check-item"><input type="radio" name="conf" value="Internal Use Only"> Internal Use Only</label>
+        <label class="check-item"><input type="radio" name="conf" value="Restricted / FERPA-Protected"> Restricted / FERPA-Protected</label>
+        <label class="check-item"><input type="radio" name="conf" value="Highly Confidential"> Highly Confidential</label>
+      </div>
+      <div class="err-msg" id="err-conf">Please select a confidentiality level.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 3 — Request Description
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-3">
+    <div class="section-tag"><span class="dot"></span>Section C</div>
+    <h2 class="section-title">Request Description</h2>
+    <p class="section-desc">Describe exactly what data you need. The more specific you are, the faster and more accurately we can respond.</p>
+    <hr class="section-rule"/>
+
+    <div class="field">
+      <label>Request Title <span class="req">✦</span></label>
+      <div class="hint">A short, descriptive name for this request.</div>
+      <input type="text" id="req-title" placeholder="e.g. Fall 2024 Retention by College and Ethnicity"/>
+      <div class="err-msg" id="err-req-title">Please provide a request title.</div>
+    </div>
+
+    <div class="field">
+      <label>Purpose / Background <span class="req">✦</span></label>
+      <div class="hint">Why is this data needed? How will it be used?</div>
+      <textarea id="purpose" placeholder="e.g. This report will support our WSCUC accreditation self-study, specifically the section on student success and equity disaggregation…"></textarea>
+      <div class="err-msg" id="err-purpose">Please describe the purpose of your request.</div>
+    </div>
+
+    <div class="field">
+      <label>Specific Data / Metrics Needed <span class="req">✦</span></label>
+      <div class="hint">List the exact variables, metrics, or data points required.</div>
+      <textarea id="metrics" placeholder="e.g. Headcount, GPA, retention rate, graduation rate — disaggregated by race/ethnicity, gender, Pell eligibility, and first-generation status…"></textarea>
+      <div class="err-msg" id="err-metrics">Please describe the data or metrics needed.</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Population / Cohort</label>
+        <div class="hint">Who should be included? (e.g., all undergraduates, STEM majors, Fall 2022 first-time freshmen)</div>
+        <textarea id="cohort" style="min-height:70px" placeholder="e.g. All degree-seeking undergraduates enrolled Fall 2020–Fall 2024"></textarea>
+      </div>
+      <div class="field">
+        <label>Time Period / Academic Terms</label>
+        <div class="hint">Which years, semesters, or date ranges?</div>
+        <textarea id="timeframe" style="min-height:70px" placeholder="e.g. AY 2019-20 through AY 2023-24 (Fall and Spring only)"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Level of Aggregation</label>
+      <div class="check-group">
+        <label class="check-item"><input type="radio" name="agg" value="Institution-wide"> Institution-wide</label>
+        <label class="check-item"><input type="radio" name="agg" value="College / School"> College / School</label>
+        <label class="check-item"><input type="radio" name="agg" value="Department / Program"> Department / Program</label>
+        <label class="check-item"><input type="radio" name="agg" value="Course Section"> Course Section</label>
+        <label class="check-item"><input type="radio" name="agg" value="Individual Student (FERPA)"> Individual Student (FERPA)</label>
+        <label class="check-item"><input type="radio" name="agg" value="Individual Employee"> Individual Employee</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 4 — Analysis & Benchmarking
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-4">
+    <div class="section-tag"><span class="dot"></span>Section D &amp; E</div>
+    <h2 class="section-title">Analysis &amp; Benchmarking</h2>
+    <p class="section-desc">Specify any comparisons, statistical methods, or visualizations required.</p>
+    <hr class="section-rule"/>
+
+    <div class="field">
+      <label>Internal Comparison Groups</label>
+      <div class="hint">e.g. by gender, ethnicity, first-generation status, full-/part-time enrollment</div>
+      <textarea id="internal-comp" placeholder="e.g. Disaggregate by race/ethnicity (using federal categories), gender, Pell Grant recipient status…"></textarea>
+    </div>
+
+    <div class="field">
+      <label>External Benchmark Institutions / Datasets</label>
+      <div class="hint">e.g. IPEDS, NSC, California private peers, WSCUC member institutions</div>
+      <textarea id="external-comp" placeholder="e.g. IPEDS comparison group assigned to LSU; California Association of Independent Colleges and Universities peers…"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Type of Analysis Required <span style="font-weight:300;font-size:.82rem">(select all that apply)</span></label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" value="Descriptive Statistics"> Descriptive Statistics</label>
+        <label class="check-item"><input type="checkbox" value="Trend / Longitudinal"> Trend / Longitudinal</label>
+        <label class="check-item"><input type="checkbox" value="Cross-tabulation"> Cross-tabulation</label>
+        <label class="check-item"><input type="checkbox" value="Regression / Predictive"> Regression / Predictive</label>
+        <label class="check-item"><input type="checkbox" value="Cohort Tracking"> Cohort Tracking</label>
+        <label class="check-item"><input type="checkbox" value="Survey Analysis"> Survey Analysis</label>
+        <label class="check-item"><input type="checkbox" value="No Analysis — Raw Data"> No Analysis — Raw Data</label>
+        <label class="check-item"><input type="checkbox" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Preferred Visualizations <span style="font-weight:300;font-size:.82rem">(select all that apply)</span></label>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" value="Bar / Column Chart"> Bar / Column Chart</label>
+        <label class="check-item"><input type="checkbox" value="Line Chart"> Line Chart</label>
+        <label class="check-item"><input type="checkbox" value="Pie / Donut Chart"> Pie / Donut Chart</label>
+        <label class="check-item"><input type="checkbox" value="Data Table"> Data Table</label>
+        <label class="check-item"><input type="checkbox" value="Heat Map"> Heat Map</label>
+        <label class="check-item"><input type="checkbox" value="IR Discretion"> IR Discretion</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Additional Analysis Notes</label>
+      <textarea id="analysis-notes" placeholder="Any special statistical methods, variables of interest, suppression rules, or other considerations…"></textarea>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 5 — Timeline & Priority
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-5">
+    <div class="section-tag"><span class="dot"></span>Section F</div>
+    <h2 class="section-title">Timeline &amp; Priority</h2>
+    <p class="section-desc">Let us know when you need the results. Expedited requests must include a justification.</p>
+    <hr class="section-rule"/>
+
+    <div class="notice">
+      ⏱ &nbsp;Standard delivery ranges from <strong>3 to 14 business days</strong> depending on complexity and IR Office workload. Expedited requests are honored at the IR Office's discretion.
+    </div>
+
+    <div class="grid-2">
+      <div class="field">
+        <label>Requested Delivery Date <span class="req">✦</span></label>
+        <input type="date" id="delivery-date"/>
+        <div class="err-msg" id="err-delivery-date">Please select a delivery date.</div>
+      </div>
+      <div class="field">
+        <label>Priority <span class="req">✦</span></label>
+        <select id="priority">
+          <option value="">— Select —</option>
+          <option value="Standard">Standard (3–14 business days)</option>
+          <option value="Expedited">Expedited (requires justification)</option>
+        </select>
+        <div class="err-msg" id="err-priority">Please select a priority level.</div>
+      </div>
+    </div>
+
+    <div class="field" id="exp-field" style="display:none">
+      <label>Expedited Justification <span class="req">✦</span></label>
+      <div class="hint">Explain the urgency (e.g., board meeting date, grant deadline, accreditation deadline).</div>
+      <textarea id="exp-justification" placeholder="e.g. Report is needed for the Board of Trustees meeting on [date]. This is a hard deadline we cannot move…"></textarea>
+      <div class="err-msg" id="err-exp-just">Please provide a justification for expedited processing.</div>
+    </div>
+
+    <div class="field">
+      <label>How did you hear about this request process?</label>
+      <select id="heard-from">
+        <option value="">— Optional —</option>
+        <option>IR Office directly</option>
+        <option>Supervisor / Department Chair</option>
+        <option>IR Website</option>
+        <option>Email announcement</option>
+        <option>Colleague / Word of mouth</option>
+        <option>Other</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       SECTION 6 — Authorization & Agreement
+  ═══════════════════════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec-6">
+    <div class="section-tag"><span class="dot"></span>Section G</div>
+    <h2 class="section-title">Authorization &amp; Data Use Agreement</h2>
+    <p class="section-desc">Please review and confirm the data use agreement before submitting.</p>
+    <hr class="section-rule"/>
+
+    <div class="notice">
+      By submitting this form, I confirm that: <strong>(1)</strong> The requested data will be used solely for the stated institutional purpose; <strong>(2)</strong> I will comply with all applicable FERPA regulations and LSU data governance policies; <strong>(3)</strong> I will not share individually identifiable data without explicit authorization; <strong>(4)</strong> I understand the IR Office may modify, delay, or decline requests that cannot be fulfilled as described.
+    </div>
+
+    <div class="field">
+      <label>Type Your Full Name as Signature <span class="req">✦</span></label>
+      <input type="text" id="signature" placeholder="e.g. Maria Garcia"/>
+      <div class="err-msg" id="err-signature">Please type your full name to confirm the agreement.</div>
+    </div>
+
+    <div class="field">
+      <label>Today's Date <span class="req">✦</span></label>
+      <input type="date" id="sig-date"/>
+      <div class="err-msg" id="err-sig-date">Please select today's date.</div>
+    </div>
+
+    <div class="field">
+      <label>Supervisor / Approver Name (if required)</label>
+      <input type="text" id="supervisor" placeholder="Optional — leave blank if not applicable"/>
+    </div>
+
+    <div class="field">
+      <label>
+        <input type="checkbox" id="agree" style="accent-color:var(--lsu-blue);width:16px;height:16px;vertical-align:middle;margin-right:8px;"/>
+        I have read and agree to the data use agreement above. <span class="req">✦</span>
+      </label>
+      <div class="err-msg" id="err-agree">You must agree to the data use policy to submit.</div>
+    </div>
+  </div>
+
+  <!-- ── SUBMIT ERROR ─────────────────────────────────────────────── -->
+  <div id="submit-error" style="display:none;background:#fdf0f0;border-left:4px solid #C0392B;border-radius:0 8px 8px 0;padding:14px 18px;font-size:0.88rem;color:#922b21;margin-top:0;"></div>
+
+  <!-- ── NAVIGATION BAR ────────────────────────────────────────────── -->
+  <div class="nav-bar" id="nav-bar">
+    <button class="btn btn-prev" id="btn-prev" onclick="navigate(-1)" style="visibility:hidden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      Previous
+    </button>
+
+    <div class="nav-steps" id="nav-dots"></div>
+
+    <button class="btn btn-next" id="btn-next" onclick="navigate(1)">
+      Next
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <!-- ── THANK YOU ─────────────────────────────────────────────────── -->
+  <div id="thank-you">
+    <div class="ty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </div>
+    <h2>Request Submitted!</h2>
+    <p>Thank you for submitting your Institutional Research request. The IR Office will review your submission and follow up via your LSU email address within <strong>3 to 14 business days</strong>.</p>
+    <p>For urgent matters, contact the IR Office directly at <strong>(951) 785-2483</strong> or <strong>ir@lasierra.edu</strong>.</p>
+    <div class="ref" id="ref-num"></div>
+  </div>
+
+</div><!-- /form-shell -->
+
+<script>
+  const TOTAL = 6;
+  let current = 1;
+
+  // ── Checkbox styling ───────────────────────────────────────────────
+  document.querySelectorAll('.check-item input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      if (inp.type === 'radio') {
+        document.querySelectorAll(`input[name="${inp.name}"]`).forEach(r => {
+          r.closest('.check-item').classList.toggle('checked', r.checked);
+        });
+      } else {
+        inp.closest('.check-item').classList.toggle('checked', inp.checked);
+      }
+    });
+  });
+
+  // Priority → show/hide expedited field
+  document.getElementById('priority').addEventListener('change', function(){
+    document.getElementById('exp-field').style.display =
+      this.value === 'Expedited' ? 'block' : 'none';
+  });
+
+  // ── Build nav dots ─────────────────────────────────────────────────
+  const dotWrap = document.getElementById('nav-dots');
+  for (let i = 1; i <= TOTAL; i++){
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 1 ? ' active' : '');
+    d.dataset.sec = i;
+    d.addEventListener('click', () => {
+      if (i < current) goTo(i);
+    });
+    dotWrap.appendChild(d);
+  }
+
+  // ── Progress ───────────────────────────────────────────────────────
+  function updateProgress(){
+    const pct = Math.round(((current - 1) / TOTAL) * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = `Section ${current} of ${TOTAL}`;
+    document.getElementById('prog-pct').textContent = pct + '% complete';
+    // dots
+    document.querySelectorAll('.nav-dot').forEach(d => {
+      const n = +d.dataset.sec;
+      d.classList.toggle('active', n === current);
+      d.classList.toggle('done',   n < current);
+    });
+    // buttons
+    document.getElementById('btn-prev').style.visibility = current > 1 ? 'visible' : 'hidden';
+    const nextBtn = document.getElementById('btn-next');
+    if (current === TOTAL){
+      nextBtn.innerHTML = `Submit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+      nextBtn.className = 'btn btn-submit';
+    } else {
+      nextBtn.innerHTML = `Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>`;
+      nextBtn.className = 'btn btn-next';
+    }
+  }
+
+  function goTo(n){
+    document.getElementById('sec-' + current).classList.remove('active');
+    current = n;
+    document.getElementById('sec-' + current).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Validation ─────────────────────────────────────────────────────
+  function showErr(id, show){
+    const el = document.getElementById('err-' + id);
+    const inp = document.getElementById(id);
+    if(el) el.classList.toggle('show', show);
+    if(inp) inp.classList.toggle('error', show);
+    return show;
+  }
+
+  function validateSection(n){
+    let ok = true;
+    if (n === 1){
+      if (!document.getElementById('fname').value.trim()) ok = showErr('fname', true) && false; else showErr('fname', false);
+      if (!document.getElementById('lname').value.trim()) ok = showErr('lname', true) && false; else showErr('lname', false);
+      if (!document.getElementById('title').value.trim()) ok = showErr('title', true) && false; else showErr('title', false);
+      if (!document.getElementById('dept').value)         ok = showErr('dept', true)  && false; else showErr('dept', false);
+      const em = document.getElementById('email').value.trim();
+      const emOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+      if (!emOk) ok = showErr('email', true) && false; else showErr('email', false);
+    }
+    if (n === 2){
+      const checked = document.querySelectorAll('#req-type-group input:checked').length > 0;
+      showErr('req-type', !checked);
+      if (!checked) ok = false;
+      const conf = document.querySelector('input[name="conf"]:checked');
+      showErr('conf', !conf);
+      if (!conf) ok = false;
+    }
+    if (n === 3){
+      if (!document.getElementById('req-title').value.trim()) ok = showErr('req-title', true) && false; else showErr('req-title', false);
+      if (!document.getElementById('purpose').value.trim())   ok = showErr('purpose', true)    && false; else showErr('purpose', false);
+      if (!document.getElementById('metrics').value.trim())   ok = showErr('metrics', true)    && false; else showErr('metrics', false);
+    }
+    if (n === 5){
+      if (!document.getElementById('delivery-date').value) ok = showErr('delivery-date', true) && false; else showErr('delivery-date', false);
+      if (!document.getElementById('priority').value)      ok = showErr('priority', true)      && false; else showErr('priority', false);
+      if (document.getElementById('priority').value === 'Expedited'){
+        if (!document.getElementById('exp-justification').value.trim()) ok = showErr('exp-just', true) && false; else showErr('exp-just', false);
+      }
+    }
+    if (n === 6){
+      if (!document.getElementById('signature').value.trim()) ok = showErr('signature', true) && false; else showErr('signature', false);
+      if (!document.getElementById('sig-date').value)         ok = showErr('sig-date', true)   && false; else showErr('sig-date', false);
+      if (!document.getElementById('agree').checked)          { showErr('agree', true); ok = false; } else showErr('agree', false);
+    }
+    return ok;
+  }
+
+  // ── Navigate ───────────────────────────────────────────────────────
+  function navigate(dir){
+    if (dir === 1){
+      if (!validateSection(current)) return;
+      if (current === TOTAL){ submitForm(); return; }
+    }
+    goTo(current + dir);
+  }
+
+  // ── Configuration ─────────────────────────────────────────────────
+  const FORMSPREE_URL = 'https://formspree.io/f/mykvpjnw';
+  const POWER_AUTOMATE_URL = 'https://default0bd6e99939824a3191baa6be8a191c.77.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9f1f479320b449fd84eaa892a21d348a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uOqGAurYmXdqmmqJBy-iS7v9YGyy7FsbRMUYvMidSx4';
+
+  // ── Collect all form data into a structured object ─────────────────
+  function collectFormData() {
+    const val   = id => (document.getElementById(id) || {}).value || '';
+    const chk   = id => (document.getElementById(id) || {}).checked || false;
+    const multi = (sel) => [...document.querySelectorAll(sel + ':checked')].map(el => el.value).join(', ');
+    const radio = name => { const el = document.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : ''; };
+
+    const ref       = 'IR-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*90000)+10000);
+    const now       = new Date().toISOString();
+    const firstName = val('fname');
+    const lastName  = val('lname');
+    const fullName  = firstName + ' ' + lastName;
+    const dept      = val('dept');
+    const email     = val('email');
+    const phone     = val('phone');
+    const titleRole = val('title');
+    const reqTitle  = val('req-title');
+    const priority  = val('priority');
+    const delivFmt  = multi('.check-group input[value]');
+    const purpose   = val('purpose');
+    const metrics   = val('metrics');
+    const cohort    = val('cohort');
+    const timeframe = val('timeframe');
+    const agg       = radio('agg');
+    const reqType   = multi('#req-type-group input');
+    const conf      = radio('conf');
+    const intComp   = val('internal-comp');
+    const extComp   = val('external-comp');
+    const analysis  = multi('input[value="Descriptive Statistics"], input[value="Trend / Longitudinal"], input[value="Cross-tabulation"], input[value="Regression / Predictive"], input[value="Cohort Tracking"], input[value="Survey Analysis"], input[value="No Analysis — Raw Data"], input[value="Other"]');
+    const visuals   = multi('input[value="Bar / Column Chart"], input[value="Line Chart"], input[value="Pie / Donut Chart"], input[value="Data Table"], input[value="Heat Map"], input[value="IR Discretion"]');
+    const aNotes    = val('analysis-notes');
+    const delDate   = val('delivery-date');
+    const expJust   = val('exp-justification');
+    const signer    = val('signature');
+    const sigDate   = val('sig-date');
+    const supervisor= val('supervisor');
+
+    // ── Notes field: bundles all detail for the SharePoint List ───────
+    const notes = [
+      'Ref: '             + ref,
+      'Requester: '       + fullName + ' | ' + titleRole + ' | ' + phone,
+      'Request Type: '    + reqType,
+      'Confidentiality: ' + conf,
+      'Aggregation: '     + agg,
+      '',
+      'PURPOSE:',          purpose,
+      '',
+      'METRICS NEEDED:',   metrics,
+      '',
+      cohort    ? 'Population/Cohort: ' + cohort    : '',
+      timeframe ? 'Time Period: '       + timeframe : '',
+      '',
+      analysis  ? 'Analysis Type: '    + analysis  : '',
+      visuals   ? 'Visualizations: '   + visuals   : '',
+      aNotes    ? 'Analysis Notes: '   + aNotes    : '',
+      '',
+      intComp   ? 'Internal Comparisons: ' + intComp : '',
+      extComp   ? 'External Benchmarks: '  + extComp : '',
+      '',
+      expJust   ? 'Expedited Justification: ' + expJust : '',
+      '',
+      'Signed by: ' + signer + ' on ' + sigDate,
+      supervisor ? 'Supervisor: ' + supervisor : '',
+    ].filter(Boolean).join('\n');
+
+    return {
+      // ── Mapped to SharePoint List columns (exact names) ─────────────
+      Task:                   reqTitle,
+      Priority:               priority,
+      Owner:                  '',               // IR assigns manually
+      Status:                 '',               // IR sets manually
+      'Log date':             now,
+      'Completion date':      '',               // IR fills later
+      'Requester Email':      email,
+      'Requester Department': dept,
+      Deliverable:            delivFmt,
+      Notes:                  notes,
+
+      // ── Extra fields for email notifications ────────────────────────
+      referenceNumber:        ref,
+      fullName:               fullName,
+      firstName:              firstName,
+      email:                  email,
+      phone:                  phone,
+      requestedDeliveryDate:  delDate,
+      requestTitle:           reqTitle,
+      submittedAt:            now,
+    };
+  }
+
+  // ── Submit ─────────────────────────────────────────────────────────
+  async function submitForm() {
+    const payload = collectFormData();
+    const ref     = payload.referenceNumber;
+    const btnNext = document.getElementById('btn-next');
+
+    // Show loading state
+    btnNext.disabled = true;
+    btnNext.innerHTML = '<svg style="animation:spin 1s linear infinite;width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Submitting...';
+
+    // ── POST to Formspree (active) or Power Automate (when configured) ─
+    const endpoint = POWER_AUTOMATE_URL || FORMSPREE_URL;
+    try {
+      const res = await fetch(endpoint, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Server returned ' + res.status);
+    } catch (err) {
+      // Show error — keep form open so user can retry
+      btnNext.disabled = false;
+      btnNext.innerHTML = 'Submit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+      btnNext.className = 'btn btn-submit';
+
+      const errBox = document.getElementById('submit-error');
+      errBox.style.display = 'block';
+      errBox.textContent = '⚠️ Submission failed — please try again or contact ir@lasierra.edu directly. (Error: ' + err.message + ')';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Show thank-you
+    document.getElementById('ref-num').textContent = 'Reference Number: ' + ref + ' — please save this for your records.';
+    document.getElementById('sec-' + current).classList.remove('active');
+    document.getElementById('nav-bar').style.display = 'none';
+    document.querySelector('.form-header').style.borderRadius = 'var(--radius) var(--radius) 0 0';
+
+    const ty = document.getElementById('thank-you');
+    ty.style.display = 'block';
+    ty.style.animation = 'fadeUp 0.45s ease both';
+    document.getElementById('prog-fill').style.width = '100%';
+    document.getElementById('prog-pct').textContent = '100% complete';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────
+  updateProgress();
+  // Pre-fill today's date
+  document.getElementById('sig-date').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
