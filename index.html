@@ -681,6 +681,21 @@ const DEFAULT_TABLES = [
     { n: "SHRLGPA_LEVL_CODE", t: "VARCHAR2", d: "Level Code associated with GPA hours and calculations" },
     { n: "SHRLGPA_GPA_TYPE_IND", t: "VARCHAR2", d: "GPA Type Indicator: I=Institutional, T=Transfer, O=Overall" },
     { n: "SHRLGPA_GPA", t: "VARCHAR2", d: "GPA for the level." }
+  ]},
+  {"id": 100,"name": "SORTEST","cat": "student","desc": "Student Test Score Repeating Table","isNew": true,"cols": [
+    {"n": "SORTEST_PIDM","t": "NUMBER","d": "iInternal identification number of the student","pk": true},
+    {"n": "SORTEST_TESC_CODE","t": "VARCHAR2","d": "This field identifies the Test Score Code associated with various tests, ie., SAT, ACT, placement scores.","pk": false},
+    {"n": "SORTEST_TEST_DATE","t": "VARCHAR2","d": "This field identifies the date a particular test was taken.","pk": false},
+    {"n": "SORTEST_TEST_SCORE","t": "VARCHAR2","d": "This field identifies a particular test score.","pk": false},
+    {"n": "SORTEST_ACTIVITY_DATE","t": "VARCHAR2","d": "This field identifies the last date the SORTEST record was updated.","pk": false}
+  ]},
+  {"id": 101,"name": "GOREMAL","cat": "person","desc": "Person E-mail repeating table","isNew": true,"cols": [
+    {"n": "GOREMAL_PIDM","t": "NUMBER","d": "The pidm of the entity who owns this e-mail information.","pk": true},
+    {"n": "GOREMAL_EMAL_CODE","t": "VARCHAR2","d": "The type of e-mail address.","pk": false},
+    {"n": "GOREMAL_EMAIL_ADDRESS","t": "VARCHAR2","d": "The e-mail address.","pk": false},
+    {"n": "GOREMAL_STATUS_IND","t": "VARCHAR2","d": "The status of the e-mail address: (A)ctive, (I)nactive","pk": false},
+    {"n": "GOREMAL_PREFERRED_IND","t": "VARCHAR2","d": "This column indicates if the e-mail address is the preferred contact address.","pk": false},
+    {"n": "GOREMAL_ACTIVITY_DATE","t": "VARCHAR2","d": "ACTIVITY DATE: This field identifies the most recent date a record was created or updated.","pk": false}
   ]}
 ];
 
