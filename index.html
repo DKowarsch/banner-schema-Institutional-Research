@@ -736,6 +736,66 @@ const DEFAULT_TABLES = [
   {"id": 107,"name": "STVAPDC","cat": "lookup","desc": "Admission Application Decision Validation Table","isNew": true,"cols": [
     {"n": "STVAPDC_CODE","t": "VARCHAR2","d": "This field identifies the application decision code referenced on the Admissions Module.","pk": true},
     {"n": "STVAPDC_DESC","t": "VARCHAR2","d": "This field specifies the the decision (e.g. applicant accepted, pending decision, quick admit) associated with the decision code.","pk": false}
+  ]},
+  {"id": 108,"name": "STVTESC","cat": "lookup","desc": "Test Score Validation Table","isNew": true,"cols": [
+    {"n": "STVTESC_CODE","t": "VARCHAR2","d": "This field identifies the test code referenced on the Admissions Decision (SAADCRV) and Admissions Decision Rules (SAADECN) Forms and by SOATEST and SOABGIY.","pk": true},
+    {"n": "STVTESC_DESC","t": "VARCHAR2","d": "This field specifies the test (e.g.  SAT Verbal, ACT Composite, Graduate Record Exam) associated with the test code.","pk": false}
+  ]},
+  {"id": 109,"name": "SGRSATT","cat": "student","desc": "Student Attribute Repeating Table. Used to identify special student statuses,","isNew": true,"cols": [
+    {"n": "SGRSATT_PIDM","t": "NUMBER","d": "Internal identification number for whom the attributes are associated with.","pk": true},
+    {"n": "SGRSATT_TERM_CODE_EFF","t": "VARCHAR2","d": "The effective term associated with the attributes.","pk": false},
+    {"n": "SGRSATT_ATTS_CODE","t": "VARCHAR2","d": "The student attributes for the person and term.","pk": false}
+  ]},
+  {"id": 110,"name": "STVATTS","cat": "lookup","desc": "Student Attribute Validation Table","isNew": true,"cols": [
+    {"n": "STVATTS_CODE","t": "VARCHAR2","d": "Student Attribute Code","pk": true},
+    {"n": "STVATTS_DESC","t": "VARCHAR2","d": "Description of Student Attribute Code","pk": false}
+  ]},
+  {"id": 111,"name": "STVSTST","cat": "lookup","desc": "Student Status Code Validation Table","isNew": true,"cols": [
+    {"n": "STVSTST_CODE","t": "VARCHAR2","d": "This field identifies the student status code referenced in the Admissions, Gen. Student, Registration and Academic History Modules. Reqd vals: AS - Active Student, IS - Inactive Student.","pk": true},
+    {"n": "STVSTST_DESC","t": "VARCHAR2","d": "This field specifies the student status associated with the student status code.","pk": false}
+  ]},
+  {"id": 112,"name": "STVLEVL","cat": "lookup","desc": "Student Level Validation Table","isNew": true,"cols": [
+    {"n": "STVLEVL_CODE","t": "VARCHAR2","d": "This field identifies the student level code referenced in the Catalog, Recruiting, Admissions, Gen Student, Registration, and Acad Hist Modules. Required value: 00 - Level Not Declared.","pk": true},
+    {"n": "STVLEVL_DESC","t": "VARCHAR2","d": "This field specifies the student level (e.g. undergraduate, graduate, professional) associated with the student level code.","pk": false}
+  ]},
+  {"id": 113,"name": "STVSTYP","cat": "lookup","desc": "Student Type Validation Table","isNew": true,"cols": [
+    {"n": "STVSTYP_CODE","t": "VARCHAR2","d": "This field identifies the student type referenced in the Admissions, Gen.Student, Registration and Acad. Hist. Modules.","pk": true},
+    {"n": "STVSTYP_DESC","t": "VARCHAR2","d": "This field specifies the student type (e.g. new freshman, transfer, continuing) associated with the student type code.","pk": false}
+  ]},
+  {"id": 114,"name": "STVCAMP","cat": "lookup","desc": "Campus Validation Table","isNew": true,"cols": [
+    {"n": "STVCAMP_CODE","t": "VARCHAR2","d": "STVCAMP_DICD_CODE: District Identifier Code validated by form GTVDICD.","pk": true},
+    {"n": "STVCAMP_DESC","t": "VARCHAR2","d": "This field defines the institution\"s campus associated with the campus code.","pk": false}
+  ]},
+  {"id": 115,"name": "STVADMT","cat": "lookup","desc": "Admission Type Validation Table","isNew": true,"cols": [
+    {"n": "STVADMT_CODE","t": "VARCHAR2","d": "This field identifies the admission type code referenced in the Admissions Module.","pk": true},
+    {"n": "STVADMT_DESC","t": "VARCHAR2","d": "This field specifies the admission type (e.g. new admit, transfer, readmit,   adult/continuing ed., etc.) associated with the admission type code.","pk": false}
+  ]},
+  {"id": 116,"name": "STVVTYP","cat": "lookup","desc": "Visa Type Code Validation Table","isNew": true,"cols": [
+    {"n": "STVVTYP_DESC","t": "VARCHAR2","d": "This field specifies the visa type (e.g. student visa, resident alien, exchange scholar) associated with the visa type code.","pk": false},
+    {"n": "STVVTYP_NON_RES_IND","t": "VARCHAR2","d": "Non-resident indicator.  Y indicates student is non-resident","pk": false},
+    {"n": "STVVTYP_CODE","t": "VARCHAR2","d": "This field identifies the visa type code referenced on the International Information Form (SPRINTL).","pk": true}
+  ]},
+  {"id": 117,"name": "SPRINTL","cat": "student","desc": "International Student Repeating Table","isNew": true,"cols": [
+    {"n": "SPRINTL_PIDM","t": "NUMBER","d": "Internal identification number of person.","pk": true},
+    {"n": "SPRINTL_VTYP_CODE_CURRENT","t": "VARCHAR2","d": "This field identifies the current visa type person holds.","pk": false},
+    {"n": "SPRINTL_NATN_CODE_LEGAL","t": "VARCHAR2","d": "This field identifies nation of citizenship of person.","pk": false}
+  ]},
+  {"id": 118,"name": "STVNATN","cat": "lookup","desc": "Nation Validation Table","isNew": true,"cols": [
+    {"n": "STVNATN_CODE","t": "VARCHAR2","d": "This field identifies the nation code referenced in the Gen. Person, Admissions, Gen. Student, and Student Billing Modules.","pk": true},
+    {"n": "STVNATN_NATION","t": "VARCHAR2","d": "This field specifies the nation/country associated with the nation code.","pk": false}
+  ]},
+  {"id": 119,"name": "SPRADDR","cat": "person","desc": "Address Repeating Table","isNew": true,"cols": [
+    {"n": "SPRADDR_PIDM","t": "NUMBER","d": "Internal identification number of person.","pk": true},
+    {"n": "SPRADDR_ATYP_CODE","t": "VARCHAR2","d": "This field identifies the type of address associated with person.","pk": false},
+    {"n": "SPRADDR_FROM_DATE","t": "VARCHAR2","d": "This field maintains the effective start date of address associated with person.","pk": false},
+    {"n": "SPRADDR_STREET_LINE1","t": "VARCHAR2","d": "This field maintains the first line of the address associated with person.","pk": false},
+    {"n": "SPRADDR_CITY","t": "VARCHAR2","d": "This field maintains the city associated with the address of person.","pk": false},
+    {"n": "SPRADDR_STAT_CODE","t": "VARCHAR2","d": "This field maintains the state associated with the address of person.","pk": false},
+    {"n": "SPRADDR_ZIP","t": "VARCHAR2","d": "This field maintains the zip code associated with the address of person.","pk": false}
+  ]},
+  {"id": 120,"name": "STVATYP","cat": "lookup","desc": "Address Type Validation Table","isNew": true,"cols": [
+    {"n": "STVATYP_CODE","t": "VARCHAR2","d": "A code used throughout all BANNER systems to identify the type of address for which information is maintained (for example; Mailing, Permanent, or Billing).","pk": true},
+    {"n": "STVATYP_DESC","t": "VARCHAR2","d": "This field identifies the address type associated with the type code.","pk": false}
   ]}
 ];
 
