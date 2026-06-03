@@ -696,6 +696,46 @@ const DEFAULT_TABLES = [
     {"n": "GOREMAL_STATUS_IND","t": "VARCHAR2","d": "The status of the e-mail address: (A)ctive, (I)nactive","pk": false},
     {"n": "GOREMAL_PREFERRED_IND","t": "VARCHAR2","d": "This column indicates if the e-mail address is the preferred contact address.","pk": false},
     {"n": "GOREMAL_ACTIVITY_DATE","t": "VARCHAR2","d": "ACTIVITY DATE: This field identifies the most recent date a record was created or updated.","pk": false}
+  ]},
+  {"id": 102,"name": "SORDEGR","cat": "student","desc": "Prior College Degree Table","isNew": true,"cols": [
+    {"n": "SORDEGR_PIDM","t": "NUMBER","d": "PIDM: Internal identification number","pk": true},
+    {"n": "SORDEGR_SBGI_CODE","t": "VARCHAR2","d": "PRIOR COLLEGE CODE: Prior college code of the prospect or applicant","pk": false},
+    {"n": "SORDEGR_DEGC_CODE","t": "VARCHAR2","d": "DEGREE CODE: The degree received at the prior college","pk": false},
+    {"n": "SORDEGR_DEGR_SEQ_NO","t": "VARCHAR2","d": "DEGREE SEQUENCE NUMBER: A unique sequence number assigned to the prior college degree","pk": false},
+    {"n": "SORDEGR_ATTEND_FROM","t": "VARCHAR2","d": "The first date of attendance at the prior college","pk": false},
+    {"n": "SORDEGR_ATTEND_TO","t": "VARCHAR2","d": "The last date of attendance at the prior college","pk": false},
+    {"n": "SORDEGR_HOURS_TRANSFERRED","t": "VARCHAR2","d": "The total number of hours transferred from the prior college.  This field is informational and does not update the transfer GPA in Academic History","pk": false},
+    {"n": "SORDEGR_GPA_TRANSFERRED","t": "VARCHAR2","d": "The transfer GPA.  This is informational and does not update the transfer GPA in Academic History","pk": false}
+  ]},
+  {"id": 103,"name": "SORPCOL","cat": "student","desc": "Prior College Table","isNew": true,"cols": [
+    {"n": "SORPCOL_PIDM","t": "NUMBER","d": "Internal identification number of the student","pk": true},
+    {"n": "SORPCOL_SBGI_CODE","t": "VARCHAR2","d": "The prior college code of the prospect or applicant","pk": false},
+    {"n": "SORPCOL_TRANS_RECV_DATE","t": "VARCHAR2","d": "The date an academic transcript was received from the prior college","pk": false},
+    {"n": "SORPCOL_TRANS_REV_DATE","t": "VARCHAR2","d": "The date an academic transcript was reviewed by the institution","pk": false},
+    {"n": "SORPCOL_OFFICIAL_TRANS","t": "VARCHAR2","d": "Designates the transcript received was an official transcript. Y denotes yes","pk": false}
+  ]},
+  {"id": 104,"name": "STVSBGI","cat": "lookup","desc": "Source/Background Inst Validation Table","isNew": true,"cols": [
+    {"n": "STVSBGI_CODE","t": "VARCHAR2","d": "This field identifies the source/background institution code referenced in the Recruiting, Admissions and Academic History Modules.","pk": true},
+    {"n": "STVSBGI_TYPE_IND","t": "VARCHAR2","d": "This field identifies the source/background institution type (e.g. college, high school, source-only)","pk": false},
+    {"n": "STVSBGI_SRCE_IND","t": "VARCHAR2","d": "This field indicates whether source/background institution is a recruiting source.","pk": false},
+    {"n": "STVSBGI_DESC","t": "VARCHAR2","d": "This field specifies the source or background institution associated with the   source/background institution code.","pk": false}
+  ]},
+  {"id": 105,"name": "SORHSCH","cat": "student","desc": "Person Related High School Base Table","isNew": true,"cols": [
+    {"n": "SORHSCH_PIDM","t": "NUMBER","d": "This field identifies the internal identification number of the student.","pk": true},
+    {"n": "SORHSCH_SBGI_CODE","t": "VARCHAR2","d": "This field identifies the high school code of the prospect/applicant.","pk": false},
+    {"n": "SORHSCH_GRADUATION_DATE","t": "VARCHAR2","d": "This field identifies the prospect/applicant graduation date from high school.","pk": false},
+    {"n": "SORHSCH_GPA","t": "VARCHAR2","d": "This field identifies the prospect/applicant high school GPA.","pk": false},
+    {"n": "SORHSCH_CLASS_RANK","t": "VARCHAR2","d": "This field identifies the prospect/applicant high school class rank.","pk": false},
+    {"n": "SORHSCH_CLASS_SIZE","t": "VARCHAR2","d": "This field indicates the size of the prospect/applicant high school graduating class size.","pk": false},
+    {"n": "SORHSCH_PERCENTILE","t": "VARCHAR2","d": "This field identifies the prospect/applicant class percentile as related to class rank and size.","pk": false}
+  ]},
+  {"id": 106,"name": "STVACAT","cat": "lookup","desc": "Award Category Validation Table","isNew": true,"cols": [
+    {"n": "STVACAT_CODE","t": "VARCHAR2","d": "Award Category Code","pk": true},
+    {"n": "STVACAT_DESC","t": "VARCHAR2","d": "Description of Award Category Code","pk": false}
+  ]},
+  {"id": 107,"name": "STVAPDC","cat": "lookup","desc": "Admission Application Decision Validation Table","isNew": true,"cols": [
+    {"n": "STVAPDC_CODE","t": "VARCHAR2","d": "This field identifies the application decision code referenced on the Admissions Module.","pk": true},
+    {"n": "STVAPDC_DESC","t": "VARCHAR2","d": "This field specifies the the decision (e.g. applicant accepted, pending decision, quick admit) associated with the decision code.","pk": false}
   ]}
 ];
 
