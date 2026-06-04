@@ -796,6 +796,21 @@ const DEFAULT_TABLES = [
   {"id": 120,"name": "STVATYP","cat": "lookup","desc": "Address Type Validation Table","isNew": true,"cols": [
     {"n": "STVATYP_CODE","t": "VARCHAR2","d": "A code used throughout all BANNER systems to identify the type of address for which information is maintained (for example; Mailing, Permanent, or Billing).","pk": true},
     {"n": "STVATYP_DESC","t": "VARCHAR2","d": "This field identifies the address type associated with the type code.","pk": false}
+  ]},
+  {"id": 121,"name": "STVRELG","cat": "lookup","desc": "Religion Code Validation Table","isNew": true,"cols": [
+    {"n": "STVRELG_DESC","t": "VARCHAR2","d": "This field specifies the religion associated with the religion code.","pk": false},
+    {"n": "STVRELG_CODE","t": "VARCHAR2","d": "This field identifies the religion code referenced on the General Person Form (SPBPERS).","pk": true}
+  ]},
+  {"id": 122,"name": "SPBPERS","cat": "person","desc": "Basic Person Base Table","isNew": true,"cols": [
+    {"n": "SPBPERS_PIDM","t": "NUMBER","d": "Internal Identification Number of Person.","pk": true},
+    {"n": "SPBPERS_SSN","t": "VARCHAR2","d": "This field maintains person social security number.","pk": false},
+    {"n": "SPBPERS_BIRTH_DATE","t": "VARCHAR2","d": "This field maintains person birth date.","pk": false},
+    {"n": "SPBPERS_MRTL_CODE","t": "VARCHAR2","d": "MARITAL CODE:  Marital status of person.","pk": false},
+    {"n": "SPBPERS_RELG_CODE","t": "VARCHAR2","d": "This field maintains religious affiliation associated with person.","pk": false},
+    {"n": "SPBPERS_SEX","t": "VARCHAR2","d": "This field maintains the sex of person.  Valid values are: M - Male, F - Female, N - Unknown.","pk": false},
+    {"n": "SPBPERS_DEAD_IND","t": "VARCHAR2","d": "This field indicates if a person is deceased.  Valid value is: Y - deceased.","pk": false},
+    {"n": "SPBPERS_DEAD_DATE","t": "VARCHAR2","d": "Person Deceased Date.","pk": false},
+   {"n": "SPBPERS_VERA_IND","t": "VARCHAR2","d": "Veteran Category. (NULL) Not a Veteran, (B) Protected veteran choosing not to self-identify the classification, (O) Active Wartime or Campaign Badge Veteran, (V) Not a Protected Veteran","pk": false}
   ]}
 ];
 
