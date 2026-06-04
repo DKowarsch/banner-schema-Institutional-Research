@@ -682,14 +682,14 @@ const DEFAULT_TABLES = [
     { n: "SHRLGPA_GPA_TYPE_IND", t: "VARCHAR2", d: "GPA Type Indicator: I=Institutional, T=Transfer, O=Overall" },
     { n: "SHRLGPA_GPA", t: "VARCHAR2", d: "GPA for the level." }
   ]},
-  {"id": 100,"name": "SORTEST","cat": "student","desc": "Student Test Score Repeating Table","isNew": true,"cols": [
+  {"id": 100,"name": "SORTEST","cat": "student","desc": "Student Test Score Repeating Table","isNew": false,"cols": [
     {"n": "SORTEST_PIDM","t": "NUMBER","d": "iInternal identification number of the student","pk": true},
     {"n": "SORTEST_TESC_CODE","t": "VARCHAR2","d": "This field identifies the Test Score Code associated with various tests, ie., SAT, ACT, placement scores.","pk": false},
     {"n": "SORTEST_TEST_DATE","t": "VARCHAR2","d": "This field identifies the date a particular test was taken.","pk": false},
     {"n": "SORTEST_TEST_SCORE","t": "VARCHAR2","d": "This field identifies a particular test score.","pk": false},
     {"n": "SORTEST_ACTIVITY_DATE","t": "VARCHAR2","d": "This field identifies the last date the SORTEST record was updated.","pk": false}
   ]},
-  {"id": 101,"name": "GOREMAL","cat": "person","desc": "Person E-mail repeating table","isNew": true,"cols": [
+  {"id": 101,"name": "GOREMAL","cat": "person","desc": "Person E-mail repeating table","isNew": false,"cols": [
     {"n": "GOREMAL_PIDM","t": "NUMBER","d": "The pidm of the entity who owns this e-mail information.","pk": true},
     {"n": "GOREMAL_EMAL_CODE","t": "VARCHAR2","d": "The type of e-mail address.","pk": false},
     {"n": "GOREMAL_EMAIL_ADDRESS","t": "VARCHAR2","d": "The e-mail address.","pk": false},
@@ -697,7 +697,7 @@ const DEFAULT_TABLES = [
     {"n": "GOREMAL_PREFERRED_IND","t": "VARCHAR2","d": "This column indicates if the e-mail address is the preferred contact address.","pk": false},
     {"n": "GOREMAL_ACTIVITY_DATE","t": "VARCHAR2","d": "ACTIVITY DATE: This field identifies the most recent date a record was created or updated.","pk": false}
   ]},
-  {"id": 102,"name": "SORDEGR","cat": "student","desc": "Prior College Degree Table","isNew": true,"cols": [
+  {"id": 102,"name": "SORDEGR","cat": "student","desc": "Prior College Degree Table","isNew": false,"cols": [
     {"n": "SORDEGR_PIDM","t": "NUMBER","d": "PIDM: Internal identification number","pk": true},
     {"n": "SORDEGR_SBGI_CODE","t": "VARCHAR2","d": "PRIOR COLLEGE CODE: Prior college code of the prospect or applicant","pk": false},
     {"n": "SORDEGR_DEGC_CODE","t": "VARCHAR2","d": "DEGREE CODE: The degree received at the prior college","pk": false},
@@ -707,20 +707,20 @@ const DEFAULT_TABLES = [
     {"n": "SORDEGR_HOURS_TRANSFERRED","t": "VARCHAR2","d": "The total number of hours transferred from the prior college.  This field is informational and does not update the transfer GPA in Academic History","pk": false},
     {"n": "SORDEGR_GPA_TRANSFERRED","t": "VARCHAR2","d": "The transfer GPA.  This is informational and does not update the transfer GPA in Academic History","pk": false}
   ]},
-  {"id": 103,"name": "SORPCOL","cat": "student","desc": "Prior College Table","isNew": true,"cols": [
+  {"id": 103,"name": "SORPCOL","cat": "student","desc": "Prior College Table","isNew": false,"cols": [
     {"n": "SORPCOL_PIDM","t": "NUMBER","d": "Internal identification number of the student","pk": true},
     {"n": "SORPCOL_SBGI_CODE","t": "VARCHAR2","d": "The prior college code of the prospect or applicant","pk": false},
     {"n": "SORPCOL_TRANS_RECV_DATE","t": "VARCHAR2","d": "The date an academic transcript was received from the prior college","pk": false},
     {"n": "SORPCOL_TRANS_REV_DATE","t": "VARCHAR2","d": "The date an academic transcript was reviewed by the institution","pk": false},
     {"n": "SORPCOL_OFFICIAL_TRANS","t": "VARCHAR2","d": "Designates the transcript received was an official transcript. Y denotes yes","pk": false}
   ]},
-  {"id": 104,"name": "STVSBGI","cat": "lookup","desc": "Source/Background Inst Validation Table","isNew": true,"cols": [
+  {"id": 104,"name": "STVSBGI","cat": "lookup","desc": "Source/Background Inst Validation Table","isNew": false,"cols": [
     {"n": "STVSBGI_CODE","t": "VARCHAR2","d": "This field identifies the source/background institution code referenced in the Recruiting, Admissions and Academic History Modules.","pk": true},
     {"n": "STVSBGI_TYPE_IND","t": "VARCHAR2","d": "This field identifies the source/background institution type (e.g. college, high school, source-only)","pk": false},
     {"n": "STVSBGI_SRCE_IND","t": "VARCHAR2","d": "This field indicates whether source/background institution is a recruiting source.","pk": false},
     {"n": "STVSBGI_DESC","t": "VARCHAR2","d": "This field specifies the source or background institution associated with the   source/background institution code.","pk": false}
   ]},
-  {"id": 105,"name": "SORHSCH","cat": "student","desc": "Person Related High School Base Table","isNew": true,"cols": [
+  {"id": 105,"name": "SORHSCH","cat": "student","desc": "Person Related High School Base Table","isNew": false,"cols": [
     {"n": "SORHSCH_PIDM","t": "NUMBER","d": "This field identifies the internal identification number of the student.","pk": true},
     {"n": "SORHSCH_SBGI_CODE","t": "VARCHAR2","d": "This field identifies the high school code of the prospect/applicant.","pk": false},
     {"n": "SORHSCH_GRADUATION_DATE","t": "VARCHAR2","d": "This field identifies the prospect/applicant graduation date from high school.","pk": false},
@@ -729,62 +729,62 @@ const DEFAULT_TABLES = [
     {"n": "SORHSCH_CLASS_SIZE","t": "VARCHAR2","d": "This field indicates the size of the prospect/applicant high school graduating class size.","pk": false},
     {"n": "SORHSCH_PERCENTILE","t": "VARCHAR2","d": "This field identifies the prospect/applicant class percentile as related to class rank and size.","pk": false}
   ]},
-  {"id": 106,"name": "STVACAT","cat": "lookup","desc": "Award Category Validation Table","isNew": true,"cols": [
+  {"id": 106,"name": "STVACAT","cat": "lookup","desc": "Award Category Validation Table","isNew": false,"cols": [
     {"n": "STVACAT_CODE","t": "VARCHAR2","d": "Award Category Code","pk": true},
     {"n": "STVACAT_DESC","t": "VARCHAR2","d": "Description of Award Category Code","pk": false}
   ]},
-  {"id": 107,"name": "STVAPDC","cat": "lookup","desc": "Admission Application Decision Validation Table","isNew": true,"cols": [
+  {"id": 107,"name": "STVAPDC","cat": "lookup","desc": "Admission Application Decision Validation Table","isNew": false,"cols": [
     {"n": "STVAPDC_CODE","t": "VARCHAR2","d": "This field identifies the application decision code referenced on the Admissions Module.","pk": true},
     {"n": "STVAPDC_DESC","t": "VARCHAR2","d": "This field specifies the the decision (e.g. applicant accepted, pending decision, quick admit) associated with the decision code.","pk": false}
   ]},
-  {"id": 108,"name": "STVTESC","cat": "lookup","desc": "Test Score Validation Table","isNew": true,"cols": [
+  {"id": 108,"name": "STVTESC","cat": "lookup","desc": "Test Score Validation Table","isNew": false,"cols": [
     {"n": "STVTESC_CODE","t": "VARCHAR2","d": "This field identifies the test code referenced on the Admissions Decision (SAADCRV) and Admissions Decision Rules (SAADECN) Forms and by SOATEST and SOABGIY.","pk": true},
     {"n": "STVTESC_DESC","t": "VARCHAR2","d": "This field specifies the test (e.g.  SAT Verbal, ACT Composite, Graduate Record Exam) associated with the test code.","pk": false}
   ]},
-  {"id": 109,"name": "SGRSATT","cat": "student","desc": "Student Attribute Repeating Table. Used to identify special student statuses,","isNew": true,"cols": [
+  {"id": 109,"name": "SGRSATT","cat": "student","desc": "Student Attribute Repeating Table. Used to identify special student statuses,","isNew": false,"cols": [
     {"n": "SGRSATT_PIDM","t": "NUMBER","d": "Internal identification number for whom the attributes are associated with.","pk": true},
     {"n": "SGRSATT_TERM_CODE_EFF","t": "VARCHAR2","d": "The effective term associated with the attributes.","pk": false},
     {"n": "SGRSATT_ATTS_CODE","t": "VARCHAR2","d": "The student attributes for the person and term.","pk": false}
   ]},
-  {"id": 110,"name": "STVATTS","cat": "lookup","desc": "Student Attribute Validation Table","isNew": true,"cols": [
+  {"id": 110,"name": "STVATTS","cat": "lookup","desc": "Student Attribute Validation Table","isNew": false,"cols": [
     {"n": "STVATTS_CODE","t": "VARCHAR2","d": "Student Attribute Code","pk": true},
     {"n": "STVATTS_DESC","t": "VARCHAR2","d": "Description of Student Attribute Code","pk": false}
   ]},
-  {"id": 111,"name": "STVSTST","cat": "lookup","desc": "Student Status Code Validation Table","isNew": true,"cols": [
+  {"id": 111,"name": "STVSTST","cat": "lookup","desc": "Student Status Code Validation Table","isNew": false,"cols": [
     {"n": "STVSTST_CODE","t": "VARCHAR2","d": "This field identifies the student status code referenced in the Admissions, Gen. Student, Registration and Academic History Modules. Reqd vals: AS - Active Student, IS - Inactive Student.","pk": true},
     {"n": "STVSTST_DESC","t": "VARCHAR2","d": "This field specifies the student status associated with the student status code.","pk": false}
   ]},
-  {"id": 112,"name": "STVLEVL","cat": "lookup","desc": "Student Level Validation Table","isNew": true,"cols": [
+  {"id": 112,"name": "STVLEVL","cat": "lookup","desc": "Student Level Validation Table","isNew": false,"cols": [
     {"n": "STVLEVL_CODE","t": "VARCHAR2","d": "This field identifies the student level code referenced in the Catalog, Recruiting, Admissions, Gen Student, Registration, and Acad Hist Modules. Required value: 00 - Level Not Declared.","pk": true},
     {"n": "STVLEVL_DESC","t": "VARCHAR2","d": "This field specifies the student level (e.g. undergraduate, graduate, professional) associated with the student level code.","pk": false}
   ]},
-  {"id": 113,"name": "STVSTYP","cat": "lookup","desc": "Student Type Validation Table","isNew": true,"cols": [
+  {"id": 113,"name": "STVSTYP","cat": "lookup","desc": "Student Type Validation Table","isNew": false,"cols": [
     {"n": "STVSTYP_CODE","t": "VARCHAR2","d": "This field identifies the student type referenced in the Admissions, Gen.Student, Registration and Acad. Hist. Modules.","pk": true},
     {"n": "STVSTYP_DESC","t": "VARCHAR2","d": "This field specifies the student type (e.g. new freshman, transfer, continuing) associated with the student type code.","pk": false}
   ]},
-  {"id": 114,"name": "STVCAMP","cat": "lookup","desc": "Campus Validation Table","isNew": true,"cols": [
+  {"id": 114,"name": "STVCAMP","cat": "lookup","desc": "Campus Validation Table","isNew": false,"cols": [
     {"n": "STVCAMP_CODE","t": "VARCHAR2","d": "STVCAMP_DICD_CODE: District Identifier Code validated by form GTVDICD.","pk": true},
     {"n": "STVCAMP_DESC","t": "VARCHAR2","d": "This field defines the institution\"s campus associated with the campus code.","pk": false}
   ]},
-  {"id": 115,"name": "STVADMT","cat": "lookup","desc": "Admission Type Validation Table","isNew": true,"cols": [
+  {"id": 115,"name": "STVADMT","cat": "lookup","desc": "Admission Type Validation Table","isNew": false,"cols": [
     {"n": "STVADMT_CODE","t": "VARCHAR2","d": "This field identifies the admission type code referenced in the Admissions Module.","pk": true},
     {"n": "STVADMT_DESC","t": "VARCHAR2","d": "This field specifies the admission type (e.g. new admit, transfer, readmit,   adult/continuing ed., etc.) associated with the admission type code.","pk": false}
   ]},
-  {"id": 116,"name": "STVVTYP","cat": "lookup","desc": "Visa Type Code Validation Table","isNew": true,"cols": [
+  {"id": 116,"name": "STVVTYP","cat": "lookup","desc": "Visa Type Code Validation Table","isNew": false,"cols": [
     {"n": "STVVTYP_DESC","t": "VARCHAR2","d": "This field specifies the visa type (e.g. student visa, resident alien, exchange scholar) associated with the visa type code.","pk": false},
     {"n": "STVVTYP_NON_RES_IND","t": "VARCHAR2","d": "Non-resident indicator.  Y indicates student is non-resident","pk": false},
     {"n": "STVVTYP_CODE","t": "VARCHAR2","d": "This field identifies the visa type code referenced on the International Information Form (SPRINTL).","pk": true}
   ]},
-  {"id": 117,"name": "SPRINTL","cat": "student","desc": "International Student Repeating Table","isNew": true,"cols": [
+  {"id": 117,"name": "SPRINTL","cat": "student","desc": "International Student Repeating Table","isNew": false,"cols": [
     {"n": "SPRINTL_PIDM","t": "NUMBER","d": "Internal identification number of person.","pk": true},
     {"n": "SPRINTL_VTYP_CODE_CURRENT","t": "VARCHAR2","d": "This field identifies the current visa type person holds.","pk": false},
     {"n": "SPRINTL_NATN_CODE_LEGAL","t": "VARCHAR2","d": "This field identifies nation of citizenship of person.","pk": false}
   ]},
-  {"id": 118,"name": "STVNATN","cat": "lookup","desc": "Nation Validation Table","isNew": true,"cols": [
+  {"id": 118,"name": "STVNATN","cat": "lookup","desc": "Nation Validation Table","isNew": false,"cols": [
     {"n": "STVNATN_CODE","t": "VARCHAR2","d": "This field identifies the nation code referenced in the Gen. Person, Admissions, Gen. Student, and Student Billing Modules.","pk": true},
     {"n": "STVNATN_NATION","t": "VARCHAR2","d": "This field specifies the nation/country associated with the nation code.","pk": false}
   ]},
-  {"id": 119,"name": "SPRADDR","cat": "person","desc": "Address Repeating Table","isNew": true,"cols": [
+  {"id": 119,"name": "SPRADDR","cat": "person","desc": "Address Repeating Table","isNew": false,"cols": [
     {"n": "SPRADDR_PIDM","t": "NUMBER","d": "Internal identification number of person.","pk": true},
     {"n": "SPRADDR_ATYP_CODE","t": "VARCHAR2","d": "This field identifies the type of address associated with person.","pk": false},
     {"n": "SPRADDR_FROM_DATE","t": "VARCHAR2","d": "This field maintains the effective start date of address associated with person.","pk": false},
@@ -793,15 +793,15 @@ const DEFAULT_TABLES = [
     {"n": "SPRADDR_STAT_CODE","t": "VARCHAR2","d": "This field maintains the state associated with the address of person.","pk": false},
     {"n": "SPRADDR_ZIP","t": "VARCHAR2","d": "This field maintains the zip code associated with the address of person.","pk": false}
   ]},
-  {"id": 120,"name": "STVATYP","cat": "lookup","desc": "Address Type Validation Table","isNew": true,"cols": [
+  {"id": 120,"name": "STVATYP","cat": "lookup","desc": "Address Type Validation Table","isNew": false,"cols": [
     {"n": "STVATYP_CODE","t": "VARCHAR2","d": "A code used throughout all BANNER systems to identify the type of address for which information is maintained (for example; Mailing, Permanent, or Billing).","pk": true},
     {"n": "STVATYP_DESC","t": "VARCHAR2","d": "This field identifies the address type associated with the type code.","pk": false}
   ]},
-  {"id": 121,"name": "STVRELG","cat": "lookup","desc": "Religion Code Validation Table","isNew": true,"cols": [
+  {"id": 121,"name": "STVRELG","cat": "lookup","desc": "Religion Code Validation Table","isNew": false,"cols": [
     {"n": "STVRELG_DESC","t": "VARCHAR2","d": "This field specifies the religion associated with the religion code.","pk": false},
     {"n": "STVRELG_CODE","t": "VARCHAR2","d": "This field identifies the religion code referenced on the General Person Form (SPBPERS).","pk": true}
   ]},
-  {"id": 122,"name": "SPBPERS","cat": "person","desc": "Basic Person Base Table","isNew": true,"cols": [
+  {"id": 122,"name": "SPBPERS","cat": "person","desc": "Basic Person Base Table","isNew": false,"cols": [
     {"n": "SPBPERS_PIDM","t": "NUMBER","d": "Internal Identification Number of Person.","pk": true},
     {"n": "SPBPERS_SSN","t": "VARCHAR2","d": "This field maintains person social security number.","pk": false},
     {"n": "SPBPERS_BIRTH_DATE","t": "VARCHAR2","d": "This field maintains person birth date.","pk": false},
@@ -814,11 +814,37 @@ const DEFAULT_TABLES = [
     {"n": "SPBPERS_ETHN_CODE","t": "VARCHAR2","d": "ETHNIC CODE: This field identifies the ethnic code referenced on the General Person Form (SPAPERS) and by the Source/Base Institution Year Form (SOABGIY). The code is mapped to other codes which are required  for government reporting.","pk": false},
     {"n": "SPBPERS_ETHN_CDE","t": "VARCHAR2","d": "ETHNIC CODE: This field identifies the ethnic code defined by the U.S. government. The valid values are 1 - Not Hispanic or Latino, 2 - Hispanic or Latino, or null.","pk": false}
   ]},
-  {"id": 123,"name": "GORVISA","cat": "student","desc": "Visa Information Table","isNew": true,"cols": [
+  {"id": 123,"name": "GORVISA","cat": "student","desc": "Visa Information Table","isNew": false,"cols": [
     {"n": "GORVISA_PIDM","t": "NUMBER","d": "PIDM:  Internal Identification number.","pk": true},
     {"n": "GORVISA_VTYP_CODE","t": "VARCHAR2","d": "VISA TYPE CODE: The Type of Visa Issued.","pk": false},
     {"n": "GORVISA_VISA_START_DATE","t": "VARCHAR2","d": "VISA START DATE: The date the visa begins.","pk": false},
     {"n": "GORVISA_VISA_EXPIRE_DATE","t": "VARCHAR2","d": "VISA EXPIRE DATE: The date the visa expires.","pk": false}
+  ]},
+  {"id": 124,"name": "GORPRAC","cat": "person","desc": "Person Race Table","isNew": false,"cols": [
+    {"n": "GORPRAC_PIDM","t": "NUMBER","d": "PIDM: Internal System Identification Number.","pk": true},
+    {"n": "GORPRAC_RACE_CDE","t": "VARCHAR2","d": "RACE CODE: This field identifies the institution defined race code on GORRACE","pk": false}
+  ]},
+  {"id": 125,"name": "REG_HOURS","cat": "student","desc": "Student registered hours","isNew": false,"cols": [
+    {"n": "REG_PIDM","t": "NUMBER","d": "","pk": true},
+    {"n": "REG_HOURS","t": "VARCHAR2","d": "","pk": false},
+    {"n": "REG_BILL_HOURS","t": "VARCHAR2","d": "","pk": false},
+    {"n": "REG_TERM_CODE","t": "VARCHAR2","d": "","pk": true}
+  ]},
+  {"id": 126,"name": "MV_SGVCLAS","cat": "student","desc": "Student enrollment level and class","isNew": false,"cols": [
+    {"n": "SGVCLAS_PIDM","t": "NUMBER","d": "Internal identification number of student.","pk": true},
+    {"n": "SGVCLAS_TERM_CODE","t": "VARCHAR2","d": "Term code for which student is enrolled.","pk": false},
+    {"n": "SGVCLAS_LEVL_CODE","t": "VARCHAR2","d": "Level at which student is enrolled.","pk": false},
+    {"n": "SGVCLAS_LEVL_DESC","t": "VARCHAR2","d": "Description of level at which student is enrolled.","pk": false},
+    {"n": "SGVCLAS_CLAS_CODE","t": "VARCHAR2","d": "Class to which student belongs.","pk": false},
+    {"n": "SGVCLAS_CLAS_DESC","t": "VARCHAR2","d": "Description of class to which student belongs.","pk": false},
+    {"n": "SGVCLAS_HOURS_ATTEMPTED","t": "VARCHAR2","d": "Credit hours attempted for the level.","pk": false},
+    {"n": "SGVCLAS_HOURS_EARNED","t": "VARCHAR2","d": "Credit hours earned for the level.","pk": false}
+  ]},
+  {"id": 127,"name": "SLRRASG","cat": "student","desc": "Room Assignment Table","isNew": false,"cols": [
+    {"n": "SLRRASG_PIDM","t": "VARCHAR2","d": "This field defines the internal identifier associated with the room assignments","pk": true},
+    {"n": "SLRRASG_TERM_CODE","t": "VARCHAR2","d": "This field defines the term associated with the room assignments","pk": true},
+    {"n": "SLRRASG_BLDG_CODE","t": "VARCHAR2","d": "This field identifies the building code of the room assignment","pk": false},
+    {"n": "SLRRASG_ROOM_NUMBER","t": "VARCHAR2","d": "This field identifies the room number of the room assignment","pk": false}
   ]}
 ];
 
