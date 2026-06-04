@@ -810,7 +810,15 @@ const DEFAULT_TABLES = [
     {"n": "SPBPERS_SEX","t": "VARCHAR2","d": "This field maintains the sex of person.  Valid values are: M - Male, F - Female, N - Unknown.","pk": false},
     {"n": "SPBPERS_DEAD_IND","t": "VARCHAR2","d": "This field indicates if a person is deceased.  Valid value is: Y - deceased.","pk": false},
     {"n": "SPBPERS_DEAD_DATE","t": "VARCHAR2","d": "Person Deceased Date.","pk": false},
-   {"n": "SPBPERS_VERA_IND","t": "VARCHAR2","d": "Veteran Category. (NULL) Not a Veteran, (B) Protected veteran choosing not to self-identify the classification, (O) Active Wartime or Campaign Badge Veteran, (V) Not a Protected Veteran","pk": false}
+    {"n": "SPBPERS_VERA_IND","t": "VARCHAR2","d": "Veteran Category. (NULL) Not a Veteran, (B) Protected veteran choosing not to self-identify the classification, (O) Active Wartime or Campaign Badge Veteran, (V) Not a Protected Veteran","pk": false},
+    {"n": "SPBPERS_ETHN_CODE","t": "VARCHAR2","d": "ETHNIC CODE: This field identifies the ethnic code referenced on the General Person Form (SPAPERS) and by the Source/Base Institution Year Form (SOABGIY). The code is mapped to other codes which are required  for government reporting.","pk": false},
+    {"n": "SPBPERS_ETHN_CDE","t": "VARCHAR2","d": "ETHNIC CODE: This field identifies the ethnic code defined by the U.S. government. The valid values are 1 - Not Hispanic or Latino, 2 - Hispanic or Latino, or null.","pk": false}
+  ]},
+  {"id": 123,"name": "GORVISA","cat": "student","desc": "Visa Information Table","isNew": true,"cols": [
+    {"n": "GORVISA_PIDM","t": "NUMBER","d": "PIDM:  Internal Identification number.","pk": true},
+    {"n": "GORVISA_VTYP_CODE","t": "VARCHAR2","d": "VISA TYPE CODE: The Type of Visa Issued.","pk": false},
+    {"n": "GORVISA_VISA_START_DATE","t": "VARCHAR2","d": "VISA START DATE: The date the visa begins.","pk": false},
+    {"n": "GORVISA_VISA_EXPIRE_DATE","t": "VARCHAR2","d": "VISA EXPIRE DATE: The date the visa expires.","pk": false}
   ]}
 ];
 
